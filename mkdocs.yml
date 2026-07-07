@@ -1,11 +1,11 @@
-# Kramlipi documentation hub — multi-project MkDocs site
+# Kramlipi documentation hub — MkDocs Material
 # Build: mkdocs build   Serve: mkdocs serve
 
 site_name: Kramlipi Docs
 site_url: https://kramlipi.github.io/
-site_description: >
-  Documentation for Kramlipi open-source projects — AI coding agents,
-  CI automation, and developer tooling.
+site_description: >-
+  code-agent — AI CLI for CI failures, failing unit tests, code coverage,
+  missing telemetry, and automated merge requests.
 site_author: Kramlipi
 copyright: Copyright &copy; 2026 Kramlipi
 
@@ -46,7 +46,6 @@ theme:
     - navigation.expand
     - navigation.top
     - navigation.footer
-    - navigation.indexes
     - search.suggest
     - search.highlight
     - search.share
@@ -60,7 +59,6 @@ plugins:
   - search:
       lang: en
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-  - monorepo
   - meta
   - minify:
       minify_html: true
@@ -114,8 +112,16 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Projects:
-      - Kramlipi AI Code Agent: "!include ./projects/kramlipi-ai-code-agent/mkdocs.yml"
+  - Quick Start: quick-start.md
+  - Examples:
+      - Python failing tests: examples/python.md
+      - Go failing tests: examples/go.md
+      - Java failing tests: examples/java.md
+  - Commands: commands.md
+  - Experts: experts.md
+  - Recipes: recipes.md
+  - Coverage: coverage.md
+  - Troubleshooting: troubleshooting.md
 
 extra_css:
   - stylesheets/extra.css

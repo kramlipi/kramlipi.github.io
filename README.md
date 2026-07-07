@@ -1,18 +1,20 @@
 # Kramlipi Docs
 
-Multi-project  documentation hub built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+Documentation for **code-agent** — built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-## Projects
+All pages live at the site root (no `/kramlipi-ai-code-agent/` prefix):
 
-| Project | Path |
-|---------|------|
-| **Kramlipi AI Code Agent** | `projects/kramlipi-ai-code-agent/` |
+| Page | URL |
+|------|-----|
+| Home | https://kramlipi.github.io/ |
+| Quick Start | https://kramlipi.github.io/quick-start/ |
+| Commands | https://kramlipi.github.io/commands/ |
+| Experts | https://kramlipi.github.io/experts/ |
 
 ## Features
 
-- **Multi-project layout** via `mkdocs-monorepo-plugin`
-- **Full-text search** (Material built-in + suggest/highlight)
-- **SEO** — meta descriptions, sitemap, social cards, `robots.txt`, canonical URLs
+- **Full-text search** (`Ctrl+K`)
+- **SEO** — meta tags, sitemap, social cards
 - **Dark / light mode**
 
 ## Quick start (local)
@@ -70,11 +72,11 @@ kramlipi.github.io
 2. **Build and deployment** → **Source** → **GitHub Actions**
 3. Push to `main` or run **Deploy documentation to GitHub Pages** manually
 
-### Live URL (after rename)
+### Live URL
 
 **https://kramlipi.github.io/**
 
-Quick start: **https://kramlipi.github.io/kramlipi-ai-code-agent/quick-start/**
+Quick start: **https://kramlipi.github.io/quick-start/**
 
 ### Custom domain (optional)
 
@@ -83,32 +85,6 @@ Quick start: **https://kramlipi.github.io/kramlipi-ai-code-agent/quick-start/**
 3. Configure DNS at your registrar (CNAME → `kramlipi.github.io`)
 4. Enable **Enforce HTTPS** in GitHub Pages settings
 
-## Add a new project
+## Add pages
 
-1. Create `projects/<project-slug>/mkdocs.yml` and `projects/<project-slug>/docs/`
-2. Add to root `mkdocs.yml` nav:
-
-   ```yaml
-   nav:
-     - Projects:
-         - My New Project: "!include ./projects/my-new-project/mkdocs.yml"
-   ```
-
-3. Run `mkdocs serve` to verify.
-
-## Deploy
-
-Deploy the `site/` directory to:
-
-- **GitHub Pages** — set `site_url` in `mkdocs.yml`, push `gh-pages` branch
-- **Netlify / Cloudflare Pages** — build command `mkdocs build`, publish `site/`
-
-Update `site_url` in `mkdocs.yml` to your production domain for correct canonical URLs and sitemap.
-
-## Source docs
-
-Kramlipi AI Code Agent content is derived from the product repo user docs:
-
-- `ai-code-agent/docs/USER-MANUAL.md`
-- `ai-code-agent/docs/USER-GUIDE.md`
-- `ai-code-agent/docs/UNIT-TEST-COVERAGE.md`
+Edit files under `docs/` and add to `nav:` in `mkdocs.yml`.
