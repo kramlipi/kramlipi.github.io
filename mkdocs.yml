@@ -113,6 +113,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Quick Start: quick-start.md
+  - Use Cases: use-cases.md
   - Examples:
       - Python failing tests: examples/python.md
       - Go failing tests: examples/go.md

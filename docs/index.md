@@ -23,6 +23,8 @@ Use it in **CI and local development** when you need to:
 | **Missing telemetry** | `monitoring-expert` finds handlers without Prometheus/OpenTelemetry metrics |
 | **MR for telemetry gaps** | `monitoring-expert --publish` → draft PR with instrumentation fixes |
 
+**Early adopter playbook (why → command → benefit):** [Use Cases](use-cases.md)
+
 ---
 
 ## Quick start
@@ -170,6 +172,7 @@ Requires `gh auth login` (GitHub) or `glab auth login` (GitLab).
 
 | Page | Contents |
 |------|----------|
+| [**Use Cases**](use-cases.md) | **Early adopter playbook** — why, command, benefit per scenario |
 | [Quick Start](quick-start.md) | Install, API key, flags, coverage, telemetry MR |
 | [Commands](commands.md) | Full CLI reference |
 | [Experts](experts.md) | bug-fix, test-intel, monitoring-expert, … |

@@ -10,6 +10,9 @@ keywords: bug-fix expert, test-intel, deploy-guard, sre-expert, monitoring-exper
 
 Experts wrap the agent loop with **intake → triage → fix → verify → publish**.
 
+!!! info "When should I use which expert?"
+    See the **[Early Adopter Use Cases](use-cases.md)** guide — each scenario explains **why**, the **command**, and the **benefit**.
+
 ```bash
 code-agent experts list
 ```

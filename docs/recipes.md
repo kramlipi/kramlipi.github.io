@@ -10,6 +10,9 @@ keywords: code-agent recipes, fix pytest, fix go test, bug-fix log, experts watc
 
 Copy-paste commands for common tasks. Replace paths with your project.
 
+!!! tip "Want the why behind each recipe?"
+    **[Use Cases](use-cases.md)** explains the pain, command, and benefit for each scenario — start there if you are piloting the agent on your team.
+
 ---
 
 ## A. Fix Python unit tests

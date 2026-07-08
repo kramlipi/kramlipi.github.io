@@ -15,6 +15,8 @@ Two ways to run `code-agent`:
 | **[Container image (GHCR)](#step-1--pull-the-container-image-recommended)** | You want the fastest start — pull and run |
 | **[pip install from source](#step-1b--install-from-source)** | You are developing code-agent itself |
 
+After install, see **[Use Cases](use-cases.md)** for real scenarios (CI failures, coverage, telemetry, PR babysit) with **why → command → benefit**.
+
 ---
 
 ## Step 1 — Pull the container image (recommended)
