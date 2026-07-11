@@ -85,7 +85,87 @@ Checks Python, ripgrep, config, and optionally pings the LLM provider.
 | `--verify-plan TASK` | Show auto-resolved **SuccessSpec** / verify command for a task (no agent run) |
 | `--workspace`, `-w` | Project root for discovery |
 
-**Verify gate:** pass `--verify-cmd` so the agent only finishes when that command exits `0`. See [How to use verify commands](goal-engine.md).
+**Verify gate:** pass `--verify-cmd` so the agent only finishes when that command exits `0`. See [How to use verify commands](#how-to-use-verify-commands) below.
+
+---
+
+## How to use verify commands
+
+Tell **code-agent** what “done” means with `--verify-cmd`. It edits your repo with tools, then re-runs that command until it exits **0** (or it fails closed).
+
+### See which verify command would be used
+
+No LLM call — discovery only:
+
+```bash
+code-agent doctor --verify-plan "fix failing unit tests" -w .
+code-agent doctor --verify-plan "increase coverage to 80%" -w .
+code-agent doctor --verify-plan "go test the package" -w /path/to/go-project
+```
+
+### Fix failing tests (Python)
+
+```bash
+cd /path/to/your-python-repo
+
+python3 -m pytest -q   # optional: show red first
+
+code-agent run "Fix all failing unit tests. Minimal changes only — do not change tests unless required." \
+  --verify-cmd "python3 -m pytest -q" \
+  -w .
+
+python3 -m pytest -q   # same command proves green
+```
+
+Narrow the gate:
+
+```bash
+code-agent run "Fix the auth tests." \
+  --verify-cmd "python3 -m pytest -q tests/test_auth.py" \
+  -w .
+```
+
+### Fix failing tests (Go)
+
+```bash
+cd /path/to/your-go-package
+
+go test ./...
+
+code-agent run "Make unit tests pass. Minimal changes only." \
+  --verify-cmd "go test ./..." \
+  -w .
+
+go test ./...
+```
+
+### Omit `--verify-cmd` (auto-discovery)
+
+If you omit `--verify-cmd`, it tries config → CI → project manifests (`pytest`, `go test`, npm, …). Prefer an **explicit** `--verify-cmd` when you know the right command.
+
+### Docker one-liner
+
+```bash
+cd /path/to/your-repo
+
+docker run --rm -it \
+  -e GEMINI_API_KEY \
+  -e CODE_AGENT_MODEL \
+  -v "$PWD:/workspace" \
+  ghcr.io/kramlipi/code-agent:latest \
+  run "Fix all failing unit tests. Minimal changes only." \
+  --verify-cmd "python3 -m pytest -q" \
+  -w /workspace
+```
+
+For Go, use `--verify-cmd "go test ./..."` (image must have Go, or run the binary locally).
+
+| Tip | Why |
+|-----|-----|
+| Same verify before and after | Proves the agent actually fixed the failure |
+| Keep the prompt tight | “Minimal changes”, “do not weaken other tests” |
+| If the run fails | Improve the **prompt**, re-run `code-agent` — don’t hand-edit the fix |
+| CI log → fix | `code-agent experts run bug-fix --log fail.log --verify-cmd "…"` |
 
 ---
 

@@ -55,7 +55,7 @@ Invoke-WebRequest -Uri "https://gist.githubusercontent.com/kramlipi/387228f78eb4
 
 Gists: [Linux](https://gist.github.com/kramlipi/d31f4f454cd127cfb552e5ed5e854af3) · [Windows](https://gist.github.com/kramlipi/387228f78eb47e437f578f625a101707)
 
-Essay: [The computer that doesn’t guess](articles/the-computer-that-doesnt-guess.md) · Full guide: [Quick Start](quick-start.md) · [How to use verify commands](goal-engine.md)
+Essay: [The computer that doesn’t guess](articles/the-computer-that-doesnt-guess.md) · Full guide: [Quick Start](quick-start.md) · [Verify commands](commands.md#how-to-use-verify-commands)
 
 ### CLI without the browser
 

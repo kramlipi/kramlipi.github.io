@@ -110,12 +110,15 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
+# Keep maintainer-only notes out of the site (avoids "not in nav" INFO)
+exclude_docs: |
+  GITHUB-PAGES-ROOT-URL.md
+
 nav:
   - Home: index.md
   - Quick Start: quick-start.md
   - Essay: articles/the-computer-that-doesnt-guess.md
   - Use Cases: use-cases.md
-  - Goal engine: goal-engine.md
   - Examples:
       - Python failing tests: examples/python.md
       - Go failing tests: examples/go.md

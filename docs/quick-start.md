@@ -12,14 +12,14 @@ Two ways to run `code-agent`:
 
 | Path | When to use |
 |------|-------------|
-| **[Container image (GHCR)](#step-1--pull-the-container-image-recommended)** | You want the fastest start — pull and run |
-| **[pip install from source](#step-1b--install-from-source)** | You are developing code-agent itself |
+| **[Container image (GHCR)](#step-1-container)** | You want the fastest start — pull and run |
+| **[pip install from source](#step-1b-source)** | You are developing code-agent itself |
 
 After install, see **[Use Cases](use-cases.md)** for real scenarios (CI failures, coverage, telemetry, PR babysit) with **why → command → benefit**.
 
 ---
 
-## Step 1 — Pull the container image (recommended)
+## Step 1 — Pull the container image (recommended) {#step-1-container}
 
 `code-agent` is published on **GitHub Container Registry**:
 
@@ -276,7 +276,7 @@ Use `latest` for newest; use `sha-…` or `@sha256:…` to pin.
 
 ---
 
-## Step 1b — Install from source
+## Step 1b — Install from source {#step-1b-source}
 
 `code-agent` is installed as a **CLI command** when you `pip install` the project (it is not a separate download).
 
