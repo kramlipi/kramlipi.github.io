@@ -173,7 +173,7 @@ Requires `gh auth login` (GitHub) or `glab auth login` (GitLab).
 | [**Use Cases**](use-cases.md) | **Early adopter playbook** — why, command, benefit per scenario |
 | [Quick Start](quick-start.md) | **docker-ui.sh** · image · API key · CLI · coverage |
 | [Essay](articles/the-computer-that-doesnt-guess.md) | What it achieves + how it sits in CI |
-| [Commands](commands.md) | Full CLI reference |
+| [Commands](commands.md) | Full CLI reference · **help / `-h` / tab completion** |
 | [Experts](experts.md) | bug-fix, test-intel, monitoring-expert, … |
 | [Recipes](recipes.md) | Copy-paste workflows |
 | [Coverage](coverage.md) | Raise unit test coverage with pytest-cov |

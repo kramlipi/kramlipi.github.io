@@ -15,6 +15,23 @@ Copy-paste commands for common tasks. Replace paths with your project.
 
 ---
 
+## 0. Fluid CLI — help + tab completion
+
+```bash
+code-agent -h                          # rich help + examples
+code-agent run -h
+code-agent experts run -h
+
+code-agent --install-completion        # once per machine
+# new terminal:
+code-agent experts run <TAB>           # bug-fix, test-intel, …
+code-agent run "…" --verify-cmd <TAB>  # pytest -q, go test ./..., …
+```
+
+More: [Commands → Help & tab completion](commands.md#help-tab-completion).
+
+---
+
 ## A. Fix Python unit tests
 
 ```bash

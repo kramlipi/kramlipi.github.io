@@ -1,9 +1,9 @@
 ---
 title: CLI Commands
 description: >-
-  Complete code-agent CLI reference — run, chat, doctor, config, env, and
-  experts subcommands with flags and expected output.
-keywords: code-agent cli, run, chat, doctor, experts run, verify-cmd
+  Complete code-agent CLI reference — help, tab completion, run, chat, doctor,
+  config, env, and experts subcommands with flags and expected output.
+keywords: code-agent cli, tab completion, install-completion, help, run, chat, doctor, experts run, verify-cmd
 ---
 
 # CLI Commands
@@ -13,14 +13,70 @@ Quick reference for every `code-agent` command. For copy-paste workflows see [Re
 ## Global
 
 ```bash
-code-agent --help
-code-agent --version
+code-agent --help          # or -h — quick starts + examples
+code-agent --version       # or -V
+code-agent --install-completion   # one-time: tab-complete in your shell
 ```
 
 | Flag | Effect |
 |------|--------|
+| `-h`, `--help` | Rich help with examples (works on every subcommand too) |
+| `-V`, `--version` | Print `code-agent <version>` and exit |
+| `--install-completion` | Install shell completion for the current shell |
+| `--show-completion` | Print the completion script (pipe into `eval` / rc file) |
 | `--config`, `-c` | Path to `config.yaml` |
 | `--workspace`, `-w` | Repo root (default: `.`) |
+
+Mistyped commands get suggestions (e.g. `code-agent docto` → hints `doctor`).
+
+---
+
+## Help & tab completion
+
+The CLI is designed to stay fluid while you type:
+
+1. **Help** — `code-agent -h`, `code-agent run -h`, `code-agent experts run -h` show grouped flags, verify tips, and copy-paste examples.
+2. **Tab completion** — after install, complete subcommands, **expert ids**, and common **`--verify-cmd`** values (`pytest -q`, `go test ./...`, …).
+
+### Install completion (once)
+
+=== "bash / zsh / fish (recommended)"
+
+    ```bash
+    code-agent --install-completion
+    # restart the shell, or open a new terminal
+    ```
+
+=== "Current session only"
+
+    ```bash
+    eval "$(code-agent --show-completion)"
+    ```
+
+=== "Docker (host shell)"
+
+    Completion installs against the **host** `code-agent` binary/PATH entry.  
+    If you only use the container image, install a local binary once, or alias:
+
+    ```bash
+    alias code-agent='docker run --rm -it -e GEMINI_API_KEY -v "$PWD:/workspace" ghcr.io/kramlipi/code-agent:latest'
+    # then: code-agent --install-completion   # if the alias is a real local wrapper script
+    ```
+
+### What Tab completes
+
+| You type… | Tab suggests… |
+|-----------|----------------|
+| `code-agent <TAB>` | `run`, `chat`, `doctor`, `experts`, `web`, `memory`, … |
+| `code-agent experts run <TAB>` | `bug-fix`, `test-intel`, `deploy-guard`, `sre-expert`, … |
+| `… --verify-cmd <TAB>` | `pytest -q`, `go test ./...`, `npm test`, `mvn test -q`, … |
+| `code-agent experts schedule <TAB>` | `flaky-fix`, … |
+
+List experts anytime:
+
+```bash
+code-agent experts list
+```
 
 ---
 
@@ -34,7 +90,7 @@ code-agent run "TASK" [OPTIONS]
 
 | Flag | Effect |
 |------|--------|
-| `--verify-cmd` | Shell command that must exit `0` |
+| `--verify-cmd` | Shell command that must exit `0` (tab-completable) |
 | `--dry-run` | Plan only; block file writes |
 | `--session-id` | Attach to existing session |
 

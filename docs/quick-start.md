@@ -300,7 +300,7 @@ cp config.example.yaml config.yaml
 
 ```bash
 which code-agent
-code-agent --version
+code-agent --version    # or: code-agent -V
 ```
 
 **Expected:**
@@ -310,6 +310,15 @@ code-agent --version
 ```
 
 If `which code-agent` prints nothing → run `source .venv/bin/activate` again.
+
+**Optional — tab completion** (expert ids, `--verify-cmd`, subcommands):
+
+```bash
+code-agent --install-completion
+# new shell, then: code-agent experts run <TAB>
+```
+
+Full details: [Commands → Help & tab completion](commands.md#help-tab-completion).
 
 **Also install ripgrep** (required for code search):
 
