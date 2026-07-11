@@ -29,52 +29,52 @@ Use it in **CI and local development** when you need to:
 
 ## Quick start
 
-Choose one install path:
+| Step | What |
+|------|------|
+| **1. Image** | `ghcr.io/kramlipi/code-agent:latest` |
+| **2. Key** | `export GEMINI_API_KEY=…` |
+| **3. Script** | [`docker-ui.sh`](assets/scripts/docker-ui.sh) → http://127.0.0.1:8080 |
 
-| Path | Best for |
-|------|----------|
-| **[Container image (GHCR)](quick-start.md#step-1--pull-the-container-image-recommended)** | Fastest — no clone, no `pip install` |
-| **[pip install from source](quick-start.md#step-1b--install-from-source)** | Developing or hacking on code-agent itself |
+```bash
+export GEMINI_API_KEY="your-key"
 
-**Published image:**
-
-```text
-ghcr.io/kramlipi/code-agent:latest
+# Linux / macOS / WSL
+curl -fsSL -o docker-ui.sh \
+  https://gist.githubusercontent.com/kramlipi/d31f4f454cd127cfb552e5ed5e854af3/raw
+chmod +x docker-ui.sh
+bash docker-ui.sh
+# → http://127.0.0.1:8080  ·  Open folder · go
 ```
 
-Package: [kramlipi/code-agent on GHCR](https://github.com/kramlipi?tab=packages)
+```powershell
+# Windows
+$env:GEMINI_API_KEY = "your-key"
+Invoke-WebRequest -Uri "https://gist.githubusercontent.com/kramlipi/387228f78eb47e437f578f625a101707/raw" -OutFile docker-ui.ps1
+.\docker-ui.ps1
+```
 
-### Fastest path — container image
+Gists: [Linux](https://gist.github.com/kramlipi/d31f4f454cd127cfb552e5ed5e854af3) · [Windows](https://gist.github.com/kramlipi/387228f78eb47e437f578f625a101707)
+
+Essay: [The computer that doesn’t guess](articles/the-computer-that-doesnt-guess.md) · Full guide: [Quick Start](quick-start.md) · [Goal engine (sample commands)](goal-engine.md)
+
+### CLI without the browser
 
 ```bash
 docker pull ghcr.io/kramlipi/code-agent:latest
 
-export CODE_AGENT_MODEL=gemini/gemini-2.0-flash
-export GEMINI_API_KEY="your-key"
-
-# After the image name = normal code-agent CLI (ENTRYPOINT is code-agent)
 docker run --rm -it \
-  -e CODE_AGENT_MODEL \
   -e GEMINI_API_KEY \
   -v "$PWD:/workspace" \
   ghcr.io/kramlipi/code-agent:latest \
   doctor --provider-test
 ```
 
-| Piece | Meaning |
-|-------|---------|
-| `-e CODE_AGENT_MODEL` / `-e GEMINI_API_KEY` | model + API key |
-| `-v "$PWD:/workspace"` | mount your repo |
-| `doctor --provider-test` | becomes `code-agent doctor --provider-test` inside the image |
-| later: `-w /workspace` | code-agent workspace flag (match the mount) |
-
-Fix failing tests in **your** repo (mount it to `/workspace`):
+Fix failing tests:
 
 ```bash
 cd /path/to/your-repo
 
 docker run --rm -it \
-  -e CODE_AGENT_MODEL \
   -e GEMINI_API_KEY \
   -v "$PWD:/workspace" \
   ghcr.io/kramlipi/code-agent:latest \
@@ -82,8 +82,6 @@ docker run --rm -it \
   --verify-cmd "pytest -q" \
   -w /workspace
 ```
-
-👉 **Full container guide + argument mapping:** [Quick Start → How container arguments are passed](quick-start.md#how-container-arguments-are-passed)
 
 ---
 
@@ -173,7 +171,8 @@ Requires `gh auth login` (GitHub) or `glab auth login` (GitLab).
 | Page | Contents |
 |------|----------|
 | [**Use Cases**](use-cases.md) | **Early adopter playbook** — why, command, benefit per scenario |
-| [Quick Start](quick-start.md) | Install, API key, flags, coverage, telemetry MR |
+| [Quick Start](quick-start.md) | **docker-ui.sh** · image · API key · CLI · coverage |
+| [Essay](articles/the-computer-that-doesnt-guess.md) | What it achieves + how it sits in CI |
 | [Commands](commands.md) | Full CLI reference |
 | [Experts](experts.md) | bug-fix, test-intel, monitoring-expert, … |
 | [Recipes](recipes.md) | Copy-paste workflows |

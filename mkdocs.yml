@@ -113,7 +113,11 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Quick Start: quick-start.md
+  - Essay: articles/the-computer-that-doesnt-guess.md
   - Use Cases: use-cases.md
+  - Goal engine:
+      - Try it (sample commands): goal-engine.md
+      - Design summary: architecture/generic-goal-engine.md
   - Examples:
       - Python failing tests: examples/python.md
       - Go failing tests: examples/go.md

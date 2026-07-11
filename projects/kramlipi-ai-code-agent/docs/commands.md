@@ -74,9 +74,18 @@ Type tasks at `you>` prompt. Type `exit` to quit.
 ```bash
 code-agent doctor
 code-agent doctor --provider-test
+code-agent doctor --verify-plan "fix failing unit tests" -w .
 ```
 
 Checks Python, ripgrep, config, and optionally pings the LLM provider.
+
+| Flag | Effect |
+|------|--------|
+| `--provider-test` | Minimal LLM call to validate API key / model |
+| `--verify-plan TASK` | Show auto-resolved **SuccessSpec** / verify command for a task (no agent run) |
+| `--workspace`, `-w` | Project root for discovery |
+
+**SuccessSpec (Phase A):** the objective gate is still `--verify-cmd` / discovered verify. See [Goal engine — sample commands](goal-engine.md).
 
 ---
 
