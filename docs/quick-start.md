@@ -25,7 +25,7 @@ Full docs: [https://kramlipi.github.io/](https://kramlipi.github.io/) · [Get st
 
 ### 1. Binary first (recommended)
 
-**[Google Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing)** · [GitHub Releases](https://github.com/kramlipi/kramlipi.github.io/releases)
+**[Google Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing)** · [GitHub Releases](https://github.com/kramlipi/code-agent-binaries/releases)
 
 ```bash
 chmod +x code-agent   # Linux / macOS
@@ -414,7 +414,7 @@ Folders: `linux/` · `macos/` · `windows/`
 
 Also published as **GitHub Release** assets on this docs repo:
 
-**[github.com/kramlipi/kramlipi.github.io/releases](https://github.com/kramlipi/kramlipi.github.io/releases)**
+**[github.com/kramlipi/code-agent-binaries/releases](https://github.com/kramlipi/code-agent-binaries/releases)**
 
 Release tags look like `code-agent-v0.1.0`. Assets:
 
@@ -436,7 +436,7 @@ Release tags look like `code-agent-v0.1.0`. Assets:
 
     ```bash
     curl -fsSL -o code-agent \
-      https://github.com/kramlipi/kramlipi.github.io/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-linux
+      https://github.com/kramlipi/code-agent-binaries/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-linux
     chmod +x code-agent
     ./code-agent doctor --provider-test
     ```
@@ -453,7 +453,7 @@ Release tags look like `code-agent-v0.1.0`. Assets:
 
     ```bash
     curl -fsSL -o code-agent \
-      https://github.com/kramlipi/kramlipi.github.io/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-macos
+      https://github.com/kramlipi/code-agent-binaries/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-macos
     chmod +x code-agent
     ./code-agent doctor --provider-test
     ```
@@ -468,7 +468,7 @@ Release tags look like `code-agent-v0.1.0`. Assets:
     Or from GitHub Releases:
 
     ```powershell
-    Invoke-WebRequest -Uri "https://github.com/kramlipi/kramlipi.github.io/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-windows.exe" `
+    Invoke-WebRequest -Uri "https://github.com/kramlipi/code-agent-binaries/releases/download/code-agent-v0.1.0/code-agent-v0.1.0-windows.exe" `
       -OutFile "code-agent.exe"
     .\code-agent.exe doctor --provider-test
     ```

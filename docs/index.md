@@ -25,7 +25,7 @@ This agent fixes that in the **CI pipeline**.
 
 Download Linux / macOS / Windows:
 
-**[Google Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing)** · **[GitHub Releases](https://github.com/kramlipi/kramlipi.github.io/releases)** · **[Release notes](release-notes.md)**
+**[Google Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing)** · **[GitHub Releases](https://github.com/kramlipi/code-agent-binaries/releases)** · **[Release notes](release-notes.md)**
 
 ```bash
 chmod +x code-agent   # Linux / macOS
@@ -170,5 +170,5 @@ The agent **refuses** to edit `.github/workflows/**` to cheat CI.
 
 - **Docs:** [https://kramlipi.github.io/](https://kramlipi.github.io/)
 - **Product:** [github.com/kramlipi/ai-code-agent](https://github.com/kramlipi/ai-code-agent)
-- **Binaries:** [Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing) · [Releases](https://github.com/kramlipi/kramlipi.github.io/releases)
+- **Binaries:** [Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing) · [Releases](https://github.com/kramlipi/code-agent-binaries/releases)
 - **Search:** `Ctrl+K` / `Cmd+K`

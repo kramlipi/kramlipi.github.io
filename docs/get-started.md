@@ -23,7 +23,7 @@ This agent fixes that in the **CI pipeline**.
 
 **[Google Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing)** — `linux/` · `macos/` · `windows/`
 
-Also: [GitHub Releases](https://github.com/kramlipi/kramlipi.github.io/releases)
+Also: [GitHub Releases](https://github.com/kramlipi/code-agent-binaries/releases)
 
 ```bash
 chmod +x code-agent   # Linux / macOS

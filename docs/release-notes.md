@@ -1,16 +1,16 @@
 # Release notes
 
 **Product:** kramlipi code-agent  
-**Binaries:** [GitHub Releases](https://github.com/kramlipi/kramlipi.github.io/releases) (binaries only — no product source)  
+**Binaries:** [GitHub Releases](https://github.com/kramlipi/code-agent-binaries/releases) (binaries only — no product source)  
 **Contact:** cluevion@gmail.com
 
 ---
 
 ## Distribution policy
 
-- **Public:** docs site + **binary** assets on GitHub Releases / Drive  
-- **Private:** product source (`code-agent` implementation)  
-- Never attach `.py`, source zips, or repo trees to Releases — only `code-agent-*-linux`, `*-windows.exe`, `*-macos`
+- **Public downloads:** [code-agent-binaries Releases](https://github.com/kramlipi/code-agent-binaries/releases) — **binary assets only**
+- **Private:** product source (`ai-code-agent`)
+- GitHub always shows automatic “Source code (zip/tar.gz)” on every Release. On the binaries repo that archive is **only a README** — ignore it; download the `code-agent-*` files.
 
 ---
 
@@ -81,5 +81,5 @@ More: [Get started](get-started.md) · [Commands](commands.md)
 
 - Verify-gated agent loop: edit → run your check → retry until green  
 - `bug-fix` expert for CI / local logs  
-- Linux + Windows binaries on [Releases](https://github.com/kramlipi/kramlipi.github.io/releases)  
+- Linux + Windows binaries on [Releases](https://github.com/kramlipi/code-agent-binaries/releases)  
 - Honest scope: we only claim **red check → same check green**
