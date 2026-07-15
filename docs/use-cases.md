@@ -421,14 +421,15 @@ code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
 
 **Benefit:** File:line comments on the PR. Invalid findings JSON fails closed (exit `2`). Lines not in the diff are skipped.
 
-### 9.2 Wire into GitHub Actions
+### 9.2 Wire into CI (GitHub / GitLab / Azure)
 
-**Why:** Every `pull_request` should get a first-pass without a human clicking “run”.
+**Why:** Every PR/MR should get a first-pass without a human clicking “run”.
 
-**Command (CI):**
+**Copy-paste YAML:** **[Code review CI](code-review-ci.md)** — GitHub Actions (inline comments), GitLab CI, Azure Pipelines.
+
+**GitHub Actions (inline):**
 
 ```yaml
-# see product repo .github/workflows/code-review-template.yml
 - run: |
     code-agent experts run code-review \
       --pr ${{ github.event.pull_request.number }} \
@@ -436,10 +437,17 @@ code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
   env:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-    CODE_AGENT_MODEL: gemini/gemini-2.0-flash
+    CODE_AGENT_MODEL: gemini/gemini-3.1-flash-lite
 ```
 
-**Benefit:** `pull-requests: write` + model key only. Binary, GHCR image, or pip — same CLI.
+**GitLab / Azure (diff file):**
+
+```bash
+git diff origin/main...HEAD > /tmp/mr.diff
+code-agent experts run code-review --diff-file /tmp/mr.diff -w .
+```
+
+**Benefit:** Same binary from [Releases](https://github.com/kramlipi/code-agent-binaries/releases). Economy mode off by default.
 
 ---
 

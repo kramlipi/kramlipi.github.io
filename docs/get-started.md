@@ -79,6 +79,10 @@ code-agent experts run code-review --pr 42 -w /path/to/your-repo
 code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
 ```
 
+**CI copy-paste (GitHub / GitLab / Azure):** [Code review CI](code-review-ci.md)
+
+Economy mode is **off by default**. Opt in: `CODE_AGENT_ECONOMY_MODE=true`.
+
 → [Use cases](use-cases.md) · [Experts](experts.md)
 
 ### Other features

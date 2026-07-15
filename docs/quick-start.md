@@ -102,6 +102,24 @@ code-agent experts run code-review --pr 42 -w /path/to/your-repo
 code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
 ```
 
+#### Add code-review to CI (copy-paste)
+
+| Platform | What you get |
+|----------|----------------|
+| **GitHub Actions** | Inline PR review comments |
+| **GitLab CI** | Findings artifact + optional MR note |
+| **Azure DevOps** | Findings pipeline artifact |
+
+→ Full YAML: **[Code review CI](code-review-ci.md)**
+
+```bash
+# GitLab / Azure / local — unified diff
+git diff main...HEAD > /tmp/mr.diff
+code-agent experts run code-review --diff-file /tmp/mr.diff -w .
+```
+
+Economy mode is **off by default**. Opt in: `CODE_AGENT_ECONOMY_MODE=true`.
+
 → [Use cases](use-cases.md) · [Experts](experts.md)
 
 #### Other features

@@ -77,9 +77,17 @@ More: [Get started](get-started.md) · [Commands](commands.md)
 
 ---
 
+## 0.1.2
+
+- **Economy mode off by default** — full quality; opt in with `CODE_AGENT_ECONOMY_MODE=true`
+- **Code-review CI copy-paste** — GitHub Actions, GitLab CI, Azure Pipelines ([guide](code-review-ci.md))
+- **`--diff-file`** for code-review on GitLab/Azure/local unified diffs
+- Linux + Windows binaries on [Releases](https://github.com/kramlipi/code-agent-binaries/releases)
+
 ## 0.1.x highlights
 
 - Verify-gated agent loop: edit → run your check → retry until green  
 - `bug-fix` expert for CI / local logs  
+- `code-review` expert for PR/MR first-pass findings  
 - Linux + Windows binaries on [Releases](https://github.com/kramlipi/code-agent-binaries/releases)  
 - Honest scope: we only claim **red check → same check green**

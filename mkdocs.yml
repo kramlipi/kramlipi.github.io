@@ -114,6 +114,7 @@ nav:
   - Home: index.md
   - Get started: get-started.md
   - Quick Start: quick-start.md
+  - Code review CI: code-review-ci.md
   - Release notes: release-notes.md
   - Use cases: use-cases.md
   - Pains: pains.md
