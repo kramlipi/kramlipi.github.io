@@ -1,8 +1,8 @@
 ---
 title: Kramlipi Docs — code-agent
 description: >-
-  Increase code coverage, fix broken CI builds, and get automated PR line-comment
-  reviews with code-agent. Binary download first; verify-gated AI for GitHub CI.
+  Symptom: red CI, buried logs, stalled coverage, review that does not scale.
+  Solution: Kramlipi AI Code Agent — verify-gated coverage, bug-fix, and PR review.
 keywords: >-
   increase code coverage, fix broken CI, PR code review comments, code-agent,
   failing unit tests, GEMINI_API_KEY, verify-cmd
@@ -10,12 +10,9 @@ keywords: >-
 
 # KramLipi Code agent
 
-**Increase your code coverage and review automatically.**
+**Symptom → solution.**
 
-Developers ship code faster — but unit tests and failed builds pile up.
-This agent fixes that in the **CI pipeline**.
-
-**`code-agent`** reads your **git repo**, edits with AI + tools, proves work with a **verify command**, and can open a **draft MR** or post **PR line comments**.
+Symptom: your PR is red, the CI log is thousands of lines, coverage gates stall merges, and review still sits on humans—while chat AI claims “fixed” with no proof. You lose nights to archaeology instead of shipping. Solution: **Kramlipi AI Code Agent**. It reads your git repo and the failure signal, edits with real tools, and only stops when **your** verify command exits `0`. Coverage, bug-fix, and PR line review become measured outcomes—not guesses.
 
 ---
 

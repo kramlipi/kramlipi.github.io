@@ -8,7 +8,11 @@ keywords: developer pain, devops pain, ci failure, flaky tests, coverage, sre, u
 
 # Developer & DevOps pains
 
-These are the pains teams already feel. Each use case says what **fixed** looks like and which command to try. Every fix path is **verify-gated**: your command must exit `0` — the model does not get to declare success alone.
+**Symptom → solution.**
+
+Symptom: your PR is red, the CI log is thousands of lines, coverage gates stall merges, and review still sits on humans—while chat AI claims “fixed” with no proof. You lose nights to archaeology instead of shipping. Solution: **Kramlipi AI Code Agent**. It reads your git repo and the failure signal, edits with real tools, and only stops when **your** verify command exits `0`. Coverage, bug-fix, and PR line review become measured outcomes—not guesses.
+
+Below: every pain we target, what **fixed** looks like, and which command to try. Every fix path is **verify-gated**.
 
 For narrative walkthroughs see [Use Cases](use-cases.md). For flags see [Commands](commands.md).
 
