@@ -6,6 +6,9 @@ description: >-
 keywords: golang go test, failing unit test, code-agent bug-fix
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#go-example](use-cases.md#go-example).
+
 # Go — Failing Unit Test Example
 
 ## What do you want?

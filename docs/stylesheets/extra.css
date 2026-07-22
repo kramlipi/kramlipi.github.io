@@ -24,3 +24,104 @@
 .highlight span.filename {
   font-weight: 600;
 }
+
+/* Social collage series on Get started */
+.kl-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.kl-collage a {
+  display: block;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(13, 148, 136, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kl-collage a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.kl-collage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 !important;
+}
+
+.kl-collage-hero {
+  margin: 1rem 0 1.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(13, 148, 136, 0.35);
+}
+
+.kl-collage-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 !important;
+}
+
+@media (max-width: 600px) {
+  .kl-collage {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Use cases — symptom cards */
+.kl-symptom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.85rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.kl-symptom-card {
+  background: linear-gradient(145deg, rgba(57, 73, 171, 0.12), rgba(13, 148, 136, 0.08));
+  border: 1px solid rgba(57, 73, 171, 0.28);
+  border-radius: 0.55rem;
+  padding: 1rem 1.1rem 0.9rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.kl-symptom-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  border-color: rgba(13, 148, 136, 0.55);
+}
+
+.kl-symptom-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--md-primary-fg-color, #3949ab);
+  margin-bottom: 0.35rem;
+}
+
+.kl-symptom-card p {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  opacity: 0.92;
+}
+
+.kl-symptom-card a {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+/* Use-case tabs — slightly roomier */
+.md-typeset .tabbed-set {
+  margin-top: 1.5rem;
+}
+
+.md-typeset .tabbed-set > label {
+  font-weight: 600;
+  font-size: 0.82rem;
+}

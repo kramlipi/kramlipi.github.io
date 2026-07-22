@@ -6,6 +6,9 @@ description: >-
 keywords: python pytest, failing unit test, code-agent bug-fix, verify-cmd
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#python-example](use-cases.md#python-example).
+
 # Python — Failing Unit Test Example
 
 ## What do you want?

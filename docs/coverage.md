@@ -6,6 +6,9 @@ description: >-
 keywords: pytest-cov, code coverage, fail-under, unit tests, bug-fix coverage
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [features.md#coverage](features.md#coverage).
+
 # Unit Tests & Coverage
 
 Runbook for raising line coverage on Python projects (especially `code_agent`).

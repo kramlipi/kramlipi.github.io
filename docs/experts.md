@@ -6,6 +6,9 @@ description: >-
 keywords: bug-fix expert, code-review, test-intel, deploy-guard, sre-expert, monitoring-expert
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [features.md#experts](features.md#experts).
+
 # Experts
 
 Experts wrap the agent loop with **intake → triage → fix → verify → publish**.

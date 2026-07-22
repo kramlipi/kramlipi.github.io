@@ -14,6 +14,8 @@ keywords: >-
 
 Symptom: your PR is red, the CI log is thousands of lines, coverage gates stall merges, and review still sits on humans—while chat AI claims “fixed” with no proof. You lose nights to archaeology instead of shipping. Solution: **Kramlipi AI Code Agent**. It reads your git repo and the failure signal, edits with real tools, and only stops when **your** verify command exits `0`. Coverage, bug-fix, and PR line review become measured outcomes—not guesses.
 
+[How kramlipi helps — visual collage →](get-started.md#how-kramlipi-helps-collage)
+
 ---
 
 ## Quick start
@@ -51,7 +53,7 @@ code-agent run "increase unit test coverage" \
   --verify-cmd "go test ./..."
 ```
 
-Python: `--verify-cmd "pytest -q --cov=PACKAGE --cov-fail-under=80"` → [Coverage](coverage.md)
+Python: `--verify-cmd "pytest -q --cov=PACKAGE --cov-fail-under=80"` → [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features.md#coverage)
 
 #### Fix a broken build / failing tests
 
@@ -68,7 +70,7 @@ code-agent experts run bug-fix \
   -w /path/to/your-repo
 ```
 
-Language walkthroughs: [Python](examples/python.md) · [Go](examples/go.md) · [Java](examples/java.md)
+Language walkthroughs: [Python](use-cases.md#python-example) · [Go](use-cases.md#go-example) · [Java](use-cases.md#java-example)
 
 #### Review a PR (inline line comments)
 
@@ -82,24 +84,24 @@ code-agent experts run code-review --pr 42 -w /path/to/your-repo
 code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
 ```
 
-More: [Experts](experts.md) · [Use cases](use-cases.md)
+More: [Use cases](use-cases.md) · [Features](features.md)
 
 #### Other features
 
 | I want to… | Do this | Detail |
 |------------|---------|--------|
-| Run fewer tests on a PR | `code-agent experts run test-intel --pr N -w .` | [Experts](experts.md) |
-| Babysit PR until green | `code-agent experts watch --pr N --verify-cmd "…" -w .` | [Recipes](recipes.md) |
-| Find missing metrics | `code-agent experts run monitoring-expert -w . --dry-run` | [Experts](experts.md) |
-| Alert → reliability fix | `code-agent experts run sre-expert --log alert.json -w .` | [Use cases](use-cases.md) |
-| Canary / deploy gate | `code-agent experts run deploy-guard --metrics-file m.json` | [Use cases](use-cases.md) |
+| Run fewer tests on a PR | `code-agent experts run test-intel --pr N -w .` | [Use cases](use-cases.md#2-slow-ci--stop-running-the-full-suite) |
+| Babysit PR until green | `code-agent experts watch --pr N --verify-cmd "…" -w .` | [Use cases](use-cases.md#51-same-pr-keeps-failing--babysit-until-green) |
+| Find missing metrics | `code-agent experts run monitoring-expert -w . --dry-run` | [Features](features.md#experts) |
+| Alert → reliability fix | `code-agent experts run sre-expert --log alert.json -w .` | [Use cases](use-cases.md#7-sre-and-incidents) |
+| Canary / deploy gate | `code-agent experts run deploy-guard --metrics-file m.json` | [Features](features.md#experts) |
 
 | Flag | Meaning |
 |------|---------|
 | `-w` | Repo folder the agent may edit |
 | `--verify-cmd` | Must exit `0` — success is not model opinion |
 
-Full walkthrough: **[Quick Start](quick-start.md)** · 1-minute: **[Get started](get-started.md)**
+Full walkthrough: **[Get started](get-started.md)** (only start page)
 
 ### Pricing
 
@@ -134,14 +136,11 @@ Image: `ghcr.io/kramlipi/code-agent:latest` · [GHCR packages](https://github.co
 
 | Next | Why |
 |------|-----|
-| [Get started](get-started.md) | Binary first, use cases, pricing, how to run |
-| [Quick Start](quick-start.md) | Install paths, flags, container mapping |
-| [Use cases](use-cases.md) | Pain → command → benefit |
-| [Tutorials](articles/index.md) | Engaging walkthroughs (Python / Go / Java / coverage / review) |
-| [Pains](pains.md) | Full pain catalog |
-| [Commands](commands.md) | Every CLI flag |
-| [Experts](experts.md) | bug-fix, code-review, test-intel, … |
-| [Coverage](coverage.md) | Raise coverage with pytest-cov |
+| [Get started](get-started.md) | Binary, ENV, use cases, Docker UI, pricing (only start page) |
+| [Use cases](use-cases.md) | Playbooks + pains + Python/Go/Java examples |
+| [Features](features.md) | Experts, CLI, recipes, coverage (full reference) |
+| [Tutorials](articles/index.md) | Walkthroughs (Python / Go / Java / coverage / review) |
+| [Help](troubleshooting.md) | Exit codes and failures |
 | [Security overview](https://github.com/kramlipi/ai-code-agent/blob/main/docs/SECURITY-COMPLIANCE.md) | Enterprise trust / data flow |
 | [Deployment modes](https://github.com/kramlipi/ai-code-agent/blob/main/docs/DEPLOYMENT-MODES.md) | Local binary · CI · local UI |
 | [config](https://github.com/kramlipi/ai-code-agent/blob/main/config.example.yaml) | All config knobs |

@@ -6,6 +6,9 @@ description: >-
 keywords: code-agent recipes, fix pytest, fix go test, bug-fix log, experts watch
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [features.md#recipes](features.md#recipes).
+
 # Recipe Book
 
 Copy-paste commands for common tasks. Replace paths with your project.

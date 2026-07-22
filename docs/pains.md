@@ -6,6 +6,9 @@ description: >-
 keywords: developer pain, devops pain, ci failure, flaky tests, coverage, sre, use cases
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#pains-catalog](use-cases.md#pains-catalog).
+
 # Developer & DevOps pains
 
 **Symptom → solution.**

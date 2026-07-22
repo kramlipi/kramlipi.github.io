@@ -1,12 +1,92 @@
 ---
-title: Early Adopter Use Cases
+title: Use cases
 description: >-
-  Real-world ways to use code-agent in CI and development — why, command, and
-  benefit for each scenario. Written for teams piloting the agent today.
-keywords: code-agent use cases, ci automation, early adopter, devops, test coverage, telemetry
+  Real-world ways to use code-agent — pains, symptoms, solutions, commands,
+  language walkthroughs, and early-adopter playbooks. Nothing removed.
+keywords: code-agent use cases, ci automation, pains, python go java examples
 ---
 
-# Early Adopter Use Cases
+# Use cases
+
+Pick your **symptom** below, then scroll for the full playbooks, pain catalog, and language examples.
+
+## Symptoms at a glance {#symptoms}
+
+<div class="kl-symptom-grid" markdown="0">
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">CI red at midnight</span>
+    <p>3,000-line log. You need green before morning.</p>
+    <a href="#1-ci-failed--you-need-a-fix-tonight">Fix CI →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Coverage gate blocks merge</span>
+    <p>80% not reached. You need tests, not a weaker gate.</p>
+    <a href="#4-coverage-gate-blocking-merge">Raise coverage →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">No first-pass PR review</span>
+    <p>Bugs and nits slip through. Seniors can't scale.</p>
+    <a href="#9-automated-pr-line-comments-code-review">Review PR →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Full suite on every tiny PR</span>
+    <p>40-minute CI. One file changed.</p>
+    <a href="#2-slow-ci--stop-running-the-full-suite">Run fewer tests →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Ops: alerts, metrics, flapping PR</span>
+    <p>PagerDuty, missing telemetry, PR keeps failing.</p>
+    <a href="#6-missing-telemetry-and-observability">Ops &amp; platform →</a>
+  </div>
+</div>
+
+!!! tip "Five jobs, one page"
+    **Symptom → solution → command** in the sections below.  
+    Full pain catalog: [Pains catalog](#pains-catalog) · Python/Go/Java: [Language walkthroughs](#language-walkthroughs)
+
+---
+
+## Early adopter playbooks {#playbooks}
+
+Pick your **symptom** below, then scroll for the full playbooks, pain catalog, and language examples.
+
+## Symptoms at a glance {#symptoms}
+
+<div class="kl-symptom-grid" markdown="0">
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">CI red at midnight</span>
+    <p>3,000-line log. You need green before morning.</p>
+    <a href="#1-ci-failed--you-need-a-fix-tonight">Fix CI →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Coverage gate blocks merge</span>
+    <p>80% not reached. You need tests, not a weaker gate.</p>
+    <a href="#4-coverage-gate-blocking-merge">Raise coverage →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">No first-pass PR review</span>
+    <p>Bugs and nits slip through. Seniors can't scale.</p>
+    <a href="#9-automated-pr-line-comments-code-review">Review PR →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Full suite on every tiny PR</span>
+    <p>40-minute CI. One file changed.</p>
+    <a href="#2-slow-ci--stop-running-the-full-suite">Run fewer tests →</a>
+  </div>
+  <div class="kl-symptom-card">
+    <span class="kl-symptom-label">Ops: alerts, metrics, flapping PR</span>
+    <p>PagerDuty, missing telemetry, PR keeps failing.</p>
+    <a href="#6-missing-telemetry-and-observability">Ops &amp; platform →</a>
+  </div>
+</div>
+
+!!! tip "Five jobs, one page"
+    **Symptom → solution → command** in the sections below.  
+    Full pain catalog: [Pains catalog](#pains-catalog) · Python/Go/Java: [Language walkthroughs](#language-walkthroughs)
+
+---
+
+## Early adopter playbooks {#playbooks}
 
 You are not buying a chatbot. You are adding a **verify-gated automation worker** that reads logs, edits your repo, and proves fixes with the same command CI uses.
 
@@ -559,3 +639,1719 @@ code-agent chat -w /path/to/your-repo
 - [Recipes](recipes.md) — copy-paste commands without narrative
 - [Coverage](coverage.md) — pytest-cov runbook
 - [Troubleshooting](troubleshooting.md) — exit codes and failures
+
+---
+
+## Developer & DevOps pains catalog {#pains-catalog}
+
+These are the pains teams already feel. Each use case says what **fixed** looks like and which command to try. Every fix path is **verify-gated**: your command must exit `0` — the model does not get to declare success alone.
+
+For narrative walkthroughs see [Use Cases](use-cases.md). For flags see [Commands](commands.md).
+
+---
+
+## Developer pains
+
+### Unreadable CI log at 11pm
+
+**Pain:** Thousands of log lines; Slack archaeology; nobody knows if it’s a flake or your PR.  
+**Fixed when:** Failure is parsed → scoped fix → **same** verify command exits `0` → optional draft PR with RCA.
+
+```bash
+gh run view <RUN_ID> --log-failed > ci.log
+code-agent experts run bug-fix \
+  --log ci.log --verify-cmd "pytest -q" -w . --publish
+```
+
+---
+
+### Passes locally, fails in CI
+
+**Pain:** Green laptop, red pipeline (env, versions, missing services).  
+**Fixed when:** You run the agent with the **exact** CI verify command (often in the official container).
+
+```bash
+docker run --rm -it -e GEMINI_API_KEY -v "$PWD:/workspace" \
+  ghcr.io/kramlipi/code-agent:latest \
+  experts run bug-fix --log /workspace/ci.log \
+  --verify-cmd "pytest -q" -w /workspace
+```
+
+---
+
+### Full suite on every tiny PR
+
+**Pain:** One-file change waits 40+ minutes; CI cost and merge queue pain.  
+**Fixed when:** Diff → impacted tests → selective verify command (fallback to full suite when unsure).
+
+```bash
+code-agent experts run test-intel --base-branch main -w .
+```
+
+---
+
+### Coverage gate blocks merge
+
+**Pain:** “80% not reached”; temptation to weaken the gate.  
+**Fixed when:** Agent **adds tests**; coverage command still exits `0`.
+
+```bash
+code-agent run \
+  "Add unit tests for src/pkg/new_feature.py. Match tests/ style." \
+  --verify-cmd "pytest -q --cov=pkg --cov-fail-under=80" -w .
+```
+
+---
+
+### No first-pass PR review on every change
+
+**Pain:** PRs merge with obvious bugs, secrets, or broken APIs; senior review doesn’t scale.  
+**Fixed when:** Automated **inline comments** on the PR diff (comment-only); humans still own design sign-off.
+
+```bash
+code-agent experts run code-review --pr 42 -w .
+code-agent experts run code-review --pr 42 --dry-run -w .
+```
+
+---
+
+### Same PR fails again and again
+
+**Pain:** Fix → push → new failure → all-day context switch.  
+**Fixed when:** Watcher polls checks and re-runs the fix loop until green or max attempts.
+
+```bash
+code-agent experts watch --pr 42 --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### Flaky tests burn trust
+
+**Pain:** Random red; people re-run until green; real bugs hide.  
+**Fixed when:** Known flaky tests can be skipped in selective plans **with a report**; current failures still get fixed.  
+**Honest limit:** Strong statistical flake scoring is not shipped yet — use `bug-fix` on the **current** failure and human quarantine for chronic flakes.
+
+---
+
+### Lint / type / format debt after a rule change
+
+**Pain:** New mypy/ruff/eslint rule; hundreds of files; merge blocked on style.  
+**Fixed when:** Narrow verify is green; edits stay scoped.
+
+```bash
+code-agent run "Fix mypy errors in src/utils.py only." \
+  --verify-cmd "mypy src/utils.py" -w .
+```
+
+---
+
+### Unfamiliar repo — where do I start?
+
+**Pain:** New hire / rotation; failing tests; fear of breaking main.  
+**Fixed when:** Doctor shows which verify would run; chat/UI can explore; dry-run before writes.
+
+```bash
+code-agent doctor --verify-plan "fix failing unit tests" -w .
+code-agent chat -w .
+```
+
+---
+
+### Dependency / Dependabot PR is red
+
+**Pain:** Version bump breaks callers; bot PR sits red for weeks.  
+**Fixed when:** Failed upgrade CI log → app/adapter fix → verify green → human merge.
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/dependabot-ci.log \
+  --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### AI claimed “fixed” without proof
+
+**Pain:** Chatbots invent success; trust collapses.  
+**Fixed when:** Agent cannot finish successfully unless your verify subprocess exits `0`.
+
+```bash
+code-agent run "Fix failing unit tests" --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### Refactor left broken imports
+
+**Pain:** Rename/package move; tests and callers lag.  
+**Fixed when:** Language verify (`pytest`, `go test`, `mvn test`, …) exits `0`.
+
+See [Python](examples/python.md) · [Go](examples/go.md) · [Java](examples/java.md).
+
+---
+
+## DevOps / platform / SRE pains
+
+### Platform is the eternal CI babysitter
+
+**Pain:** Every team pings platform to read logs.  
+**Fixed when:** One golden-path command works on every service (same exit codes).
+
+```bash
+code-agent experts run bug-fix --log ci.log --verify-cmd "pytest -q" -w "$REPO"
+```
+
+---
+
+### CI minutes / runner cost explode
+
+**Pain:** Full suites on every push; finance asks why the bill doubled.  
+**Fixed when:** Selective tests on PRs via `test-intel`; org workflow template.
+
+```bash
+code-agent experts run test-intel --base-branch main -w .
+```
+
+---
+
+### Flapping pipelines → duplicate bot PRs
+
+**Pain:** Overnight spam of identical “fix” MRs.  
+**Fixed when:** Dedup by failure fingerprint (same failure within TTL → skip).
+
+Built into `bug-fix` — no extra flags.
+
+---
+
+### Agents must not cheat CI
+
+**Pain:** Fear that AI will edit workflows or disable checks to go green.  
+**Fixed when:** Forbidden paths (e.g. `.github/workflows`) enforced; review the draft MR.
+
+---
+
+### Missing metrics / SLO before release
+
+**Pain:** Readiness asks for latency/error metrics; manual grep does not scale.  
+**Fixed when:** Scan → gap report; optional draft MR with instrumentation.
+
+```bash
+code-agent experts run monitoring-expert -w . --dry-run
+code-agent experts run monitoring-expert -w . --publish
+```
+
+---
+
+### Alert fired — kubectl roulette
+
+**Pain:** PagerDuty noise; tribal knowledge; manual prod edits.  
+**Fixed when:** Alert → code/config remediations → health verify → draft MR (start with `--dry-run`).
+
+```bash
+code-agent experts run sre-expert \
+  --log ./alert.json \
+  --verify-cmd "curl -sf http://localhost:8080/health" \
+  -w . --dry-run
+```
+
+---
+
+### Post-deploy — is the canary safe?
+
+**Pain:** Metrics tick up; nobody owns go/no-go.  
+**Fixed when:** Compare to baseline → `pass` / `block` / `rollback` artifact.
+
+```bash
+code-agent experts run deploy-guard --metrics-file metrics/current.json -w .
+```
+
+---
+
+### Webhooks should trigger experts (no SSH)
+
+**Pain:** Events need HTTP intake; jump hosts do not scale.  
+**Fixed when:** `experts serve` behind auth with budget/throttle gates.
+
+```bash
+code-agent experts serve --host 0.0.0.0 --port 8787 -w /path/to/checkout
+```
+
+---
+
+### Locked-down laptops (no local pip)
+
+**Pain:** Security blocks local Python installs.  
+**Fixed when:** Official image + mounted workspace.
+
+```bash
+docker pull ghcr.io/kramlipi/code-agent:latest
+# see Quick Start for docker-ui.sh
+```
+
+---
+
+### Nightly job red for days
+
+**Pain:** Scheduled pipeline fails unnoticed until Monday.  
+**Fixed when:** On `failure()`, run `bug-fix` → draft MR + notify (wire in Actions/GitLab).
+
+---
+
+### Compliance — what did the bot change?
+
+**Pain:** SOC2 / customer asks for an audit trail.  
+**Fixed when:** Every run leaves artifacts under `.code-agent/runs/` (signals, verify, diff).
+
+---
+
+## What we are not (yet)
+
+| Pain | Reality |
+|------|---------|
+| “Review every PR like a senior” | We babysit **CI green**, not design review |
+| “Auto-mark flaky and forget” | No strong flake scorer yet — fix current failure; quarantine by policy |
+| “Edit workflows to make green” | **Blocked** by safety |
+| “Fix Terraform/Helm as a first-class expert” | Use custom `--verify-cmd` today; dedicated IaC path is later |
+| “Replace staging / kubectl” | Agent edits **code**; pair with `deploy-guard` for metrics gates |
+
+---
+
+## Quick picker
+
+| I need to… | Start here |
+|------------|------------|
+| Fix CI from a log | `experts run bug-fix --log …` |
+| Run fewer tests on a PR | `experts run test-intel` |
+| Raise coverage | `run` / `bug-fix` + cov verify |
+| Babysit a flapping PR | `experts watch --pr N` |
+| Find missing metrics | `experts run monitoring-expert` |
+| Alert → code fix | `experts run sre-expert` |
+| Post-deploy metrics gate | `experts run deploy-guard` |
+| Prove “done” | always `--verify-cmd` |
+| No local Python | Docker / [Quick Start](quick-start.md) |
+
+---
+
+## Related
+
+- [Early adopter use cases](use-cases.md) — why / command / benefit in depth  
+- [Recipes](recipes.md) — copy-paste only  
+- [Experts](experts.md) — inputs and outputs  
+- [Commands](commands.md) — CLI reference including verify how-to  
+
+---
+
+## Language walkthroughs {#language-walkthroughs}
+
+### Python — failing unit tests {#python-example}
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken build / failing pytest** | `code-agent experts run bug-fix --log /tmp/ci.log --verify-cmd "pytest -q" -w .` |
+| **Increase coverage** | `code-agent run "increase unit test coverage" --verify-cmd "pytest -q --cov=PKG --cov-fail-under=80" -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+End-to-end below: **create a failing test → fix with code-agent**.
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+
+---
+
+## 1. Create a failing test (in your repo)
+
+```bash
+mkdir -p /tmp/py-demo && cd /tmp/py-demo
+git init
+
+# Minimal package
+mkdir -p myapp tests
+cat > myapp/__init__.py <<'EOF'
+def add(a: int, b: int) -> int:
+    return a + b
+EOF
+
+cat > myapp/calc.py <<'EOF'
+def add(a: int, b: int) -> int:
+    return a - b   # BUG: should be +
+EOF
+
+cat > tests/test_calc.py <<'EOF'
+from myapp.calc import add
+
+def test_add():
+    assert add(2, 3) == 5
+EOF
+
+pip install pytest
+pytest -q
+```
+
+**Expected (failure):**
+
+```text
+FAILED tests/test_calc.py::test_add - assert -1 == 5
+1 failed
+```
+
+**Save the log:**
+
+```bash
+pytest -q 2>&1 | tee /tmp/pytest.log
+```
+
+---
+
+## 2. Fix with `code-agent run` (prompt mode)
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix the failing test in tests/test_calc.py. The add() function in myapp/calc.py is wrong. Run pytest -q until all tests pass. Change only what is needed." \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo
+```
+
+### Flags explained
+
+| Flag | Value | Meaning |
+|------|-------|---------|
+| `"..."` | task text | What you want — plain English |
+| `--verify-cmd` | `pytest -q` | Agent must run this and get exit `0` before finishing |
+| `-w` | `/tmp/py-demo` | **Workspace** — only this repo is edited |
+
+**Expected:**
+
+```text
+Status: done
+Files: myapp/calc.py
+```
+
+**Verify yourself:**
+
+```bash
+cd /tmp/py-demo && pytest -q
+# 1 passed
+```
+
+---
+
+## 3. Fix with `bug-fix` expert (CI log mode)
+
+Best when CI already failed and you have a log file.
+
+```bash
+cd /tmp/py-demo
+pytest -q 2>&1 | tee /tmp/pytest.log
+
+code-agent experts run bug-fix \
+  --log /tmp/pytest.log \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo
+```
+
+### Flags explained
+
+| Flag | Meaning | Why use it |
+|------|---------|------------|
+| `--log` | Path to pytest output | Expert **parses** failures (file, line, assertion) — no guessing |
+| `--verify-cmd` | Must match what CI runs | Same proof as GitHub Actions |
+| `-w` | Your Python repo | Agent edits `myapp/` and `tests/` here |
+| `--dry-run` | (optional) Try without publish | First safe run |
+| `--publish` | (optional) Open draft PR | After local verify works |
+
+**Parser support:** pytest failures, coverage failures, Python tracebacks, mypy.
+
+---
+
+## 4. Raise coverage (add missing unit tests)
+
+Break coverage on purpose:
+
+```bash
+cat >> myapp/calc.py <<'EOF'
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+EOF
+
+# No test for multiply yet
+pytest -q --cov=myapp --cov-report=term-missing --cov-fail-under=80 2>&1 | tee /tmp/cov.log
+```
+
+Fix:
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/cov.log \
+  --verify-cmd "pytest -q --cov=myapp --cov-report=term-missing --cov-fail-under=80" \
+  -w /tmp/py-demo
+```
+
+Agent adds tests in `tests/` — does **not** remove `multiply()` to cheat.
+
+---
+
+## 5. Open a merge request
+
+```bash
+cd /tmp/py-demo
+git add . && git commit -m "initial"
+git remote add origin git@github.com:YOU/py-demo.git
+git push -u origin main
+
+pytest -q 2>&1 | tee /tmp/pytest.log
+
+code-agent experts run bug-fix \
+  --log /tmp/pytest.log \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo \
+  --publish \
+  --base-branch main
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--publish` | Commit fix, push branch, open **draft PR** via `gh` |
+| `--base-branch` | PR merges into `main` |
+
+---
+
+## Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Forgot `-w` | Agent edits wrong directory |
+| Wrong `--verify-cmd` | Use exact CI command: `pytest -q` not `python -m pytest` if CI uses `pytest -q` |
+| No venv activated | `code-agent: command not found` |
+| No `GEMINI_API_KEY` | `doctor` fails — set key first |
+
+[← Back to Quick Start](../quick-start.md)
+
+### Go — failing unit tests {#go-example}
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken Go build / failing tests** | `code-agent experts run bug-fix --log /tmp/go.log --verify-cmd "go test ./..." -w .` |
+| **Increase coverage** | `code-agent run "increase unit test coverage" --verify-cmd "go test ./..." -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+Go projects use **`go test`**, not `pytest`. Always set `--verify-cmd "go test ..."`.
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+
+---
+
+## 1. Create a failing test
+
+```bash
+mkdir -p /tmp/go-demo && cd /tmp/go-demo
+git init
+go mod init example.com/demo
+
+cat > main.go <<'EOF'
+package main
+
+func Add(a, b int) int {
+	return a - b // BUG: should be +
+}
+EOF
+
+cat > main_test.go <<'EOF'
+package main
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+	if got := Add(2, 3); got != 5 {
+		t.Errorf("Add(2,3) = %d; want 5", got)
+	}
+}
+EOF
+
+go test -v ./...
+```
+
+**Expected (failure):**
+
+```text
+--- FAIL: TestAdd (0.00s)
+    main_test.go:6: Add(2,3) = -1; want 5
+FAIL
+```
+
+**Save log:**
+
+```bash
+go test -v ./... 2>&1 | tee /tmp/go-test.log
+```
+
+---
+
+## 2. Fix with `code-agent run`
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix failing TestAdd in main_test.go. The Add function in main.go has a bug. Run 'go test -v ./...' until all tests pass. Minimal change only." \
+  --verify-cmd "go test -v ./..." \
+  -w /tmp/go-demo
+```
+
+### Flags explained
+
+| Flag | Why for Go |
+|------|------------|
+| `--verify-cmd "go test -v ./..."` | **Must** be Go's test runner — never `pytest` |
+| `-w /tmp/go-demo` | Module root (where `go.mod` lives) |
+
+**Expected:**
+
+```text
+Status: done
+Files: main.go
+```
+
+```bash
+cd /tmp/go-demo && go test -v ./...
+# PASS
+```
+
+---
+
+## 3. Fix with `bug-fix` expert (from log)
+
+```bash
+cd /tmp/go-demo
+go test -v ./... 2>&1 | tee /tmp/go-test.log
+
+code-agent experts run bug-fix \
+  --log /tmp/go-test.log \
+  --verify-cmd "go test -v ./..." \
+  -w /tmp/go-demo
+```
+
+### Flags explained
+
+| Flag | Meaning |
+|------|---------|
+| `--log /tmp/go-test.log` | Go compiler/test errors parsed automatically |
+| `--verify-cmd` | Same command CI uses |
+| `-w` | Go module root |
+| `--dry-run` | Test locally first, no MR |
+| `--publish` | Push fix branch + draft PR |
+
+**Go parser catches:** `main.go:line: undefined`, test failures, build errors.
+
+---
+
+## 4. Fix tests in another repo (real world)
+
+`code-agent` install lives in one folder; **your Go app** in another:
+
+```bash
+# Terminal 1 — your Go project
+cd ~/karm/my-go-service
+go test -v ./... 2>&1 | tee /tmp/go-ci.log
+
+# Terminal 2 — run agent
+source ~/karm/ai-code-agent/.venv/bin/activate
+
+code-agent experts run bug-fix \
+  --log /tmp/go-ci.log \
+  --verify-cmd "go test -v ./..." \
+  -w ~/karm/my-go-service
+```
+
+!!! warning
+    **One** `-w` pointing at the Go repo. Do not point `-w` at `ai-code-agent`.
+
+---
+
+## 5. CI babysit (PR keeps failing)
+
+```bash
+code-agent experts watch \
+  --pr 42 \
+  --verify-cmd "go test -v ./..." \
+  -w ~/karm/my-go-service
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--pr 42` | Watch GitHub PR #42 checks |
+| `--verify-cmd` | Re-run after each fix attempt |
+| `--publish` / `--no-publish` | Push fixes to PR branch (default: publish on) |
+
+---
+
+## Common mistakes
+
+| Mistake | Result |
+|---------|--------|
+| `--verify-cmd "pytest -q"` on Go repo | Agent runs wrong tool — fails |
+| `-w` not at `go.mod` root | Cannot find package |
+| Running `go test` outside module | "go.mod not found" |
+
+[← Back to Quick Start](../quick-start.md)
+
+### Java — failing unit tests {#java-example}
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken Maven/Gradle build** | `code-agent experts run bug-fix --log /tmp/mvn.log --verify-cmd "mvn test -q" -w .` |
+| **Increase coverage** | `code-agent run "add unit tests to raise coverage" --verify-cmd "mvn test -q" -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+Java uses **JUnit** + **Maven** or **Gradle**. Set `--verify-cmd` to match your build tool.
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+
+!!! info "Parser note"
+    Dedicated Java/JUnit log parser is limited — `bug-fix` uses **generic error parsing** plus the agent reading test output. **`--verify-cmd` is critical** so the agent proves `mvn test` or `./gradlew test` passes.
+
+---
+
+## Option A — Maven project
+
+### 1. Create a failing test
+
+```bash
+mkdir -p /tmp/java-demo && cd /tmp/java-demo
+git init
+
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo \
+  -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+cd demo
+
+# Introduce bug in main code
+cat > src/main/java/com/example/App.java <<'EOF'
+package com.example;
+
+public class App {
+    public static int add(int a, int b) {
+        return a - b; // BUG: should be +
+    }
+}
+EOF
+
+cat > src/test/java/com/example/AppTest.java <<'EOF'
+package com.example;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class AppTest {
+    @Test
+    public void testAdd() {
+        assertEquals(5, App.add(2, 3));
+    }
+}
+EOF
+
+mvn test
+```
+
+**Expected:** `BUILD FAILURE` with assertion error in output.
+
+**Save log:**
+
+```bash
+mvn test 2>&1 | tee /tmp/java-maven.log
+```
+
+### 2. Fix with code-agent
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix failing AppTest. The add method in App.java returns wrong result. Run 'mvn test' until BUILD SUCCESS. Change only what is needed." \
+  --verify-cmd "mvn test -q" \
+  -w /tmp/java-demo/demo
+```
+
+### 3. Fix with bug-fix expert
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-maven.log \
+  --verify-cmd "mvn test -q" \
+  -w /tmp/java-demo/demo
+```
+
+### Flags explained
+
+| Flag | Value | Why |
+|------|-------|-----|
+| `-w` | Maven module root (`pom.xml` here) | Agent edits `src/main` and `src/test` |
+| `--verify-cmd` | `mvn test -q` | Must match CI — quiet Maven like Actions |
+| `--log` | Maven surefire output | Failure class + line from log |
+
+---
+
+## Option B — Gradle project
+
+### 1. Create project + failing test
+
+```bash
+mkdir -p /tmp/gradle-demo && cd /tmp/gradle-demo
+git init
+
+gradle init --type java-application --dsl kotlin --test-framework junit-jupiter --package com.example --project-name demo
+cd demo
+
+# Edit generated code to fail (similar App class + test)
+./gradlew test
+```
+
+**Save log:**
+
+```bash
+./gradlew test 2>&1 | tee /tmp/java-gradle.log
+```
+
+### 2. Fix with code-agent
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-gradle.log \
+  --verify-cmd "./gradlew test" \
+  -w /tmp/gradle-demo/demo
+```
+
+| Flag | Why |
+|------|-----|
+| `--verify-cmd "./gradlew test"` | Gradle wrapper — same as CI |
+| `-w` | Directory with `build.gradle.kts` |
+
+---
+
+## Add missing unit tests (coverage)
+
+For Java coverage (JaCoCo), use verify command that includes coverage gate:
+
+```bash
+# Example — adjust to your pom.xml / build.gradle
+mvn test jacoco:report 2>&1 | tee /tmp/java-cov.log
+
+code-agent experts run bug-fix \
+  --log /tmp/java-cov.log \
+  --verify-cmd "mvn test jacoco:report" \
+  -w /path/to/java-project
+```
+
+Agent adds tests under `src/test/java/` for uncovered methods.
+
+---
+
+## Open merge request
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-maven.log \
+  --verify-cmd "mvn test -q" \
+  -w /path/to/java-project \
+  --publish \
+  --base-branch main
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--publish` | Creates branch + draft PR with fix |
+| `--base-branch` | Target branch for MR |
+
+Requires `gh auth login`.
+
+---
+
+## Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| `-w` at wrong level | Must be folder with `pom.xml` or `build.gradle` |
+| `mvn test` vs `mvn verify` | Use **exact** CI command in `--verify-cmd` |
+| JDK not installed | Install JDK 17+; `java -version` must work |
+| Mixing Maven and Gradle flags | Pick one build tool per project |
+
+[← Back to Quick Start](../quick-start.md)
+
+---
+
+## Developer & DevOps pains catalog {#pains-catalog}
+
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#pains-catalog](use-cases.md#pains-catalog).
+
+
+**Symptom → solution.**
+
+Symptom: your PR is red, the CI log is thousands of lines, coverage gates stall merges, and review still sits on humans—while chat AI claims “fixed” with no proof. You lose nights to archaeology instead of shipping. Solution: **Kramlipi AI Code Agent**. It reads your git repo and the failure signal, edits with real tools, and only stops when **your** verify command exits `0`. Coverage, bug-fix, and PR line review become measured outcomes—not guesses.
+
+Below: every pain we target, what **fixed** looks like, and which command to try. Every fix path is **verify-gated**.
+
+For narrative walkthroughs see [Use Cases](use-cases.md). For flags see [Commands](commands.md).
+
+---
+
+## Developer pains
+
+### Unreadable CI log at 11pm
+
+**Pain:** Thousands of log lines; Slack archaeology; nobody knows if it’s a flake or your PR.  
+**Fixed when:** Failure is parsed → scoped fix → **same** verify command exits `0` → optional draft PR with RCA.
+
+```bash
+gh run view <RUN_ID> --log-failed > ci.log
+code-agent experts run bug-fix \
+  --log ci.log --verify-cmd "pytest -q" -w . --publish
+```
+
+---
+
+### Passes locally, fails in CI
+
+**Pain:** Green laptop, red pipeline (env, versions, missing services).  
+**Fixed when:** You run the agent with the **exact** CI verify command (often in the official container).
+
+```bash
+docker run --rm -it -e GEMINI_API_KEY -v "$PWD:/workspace" \
+  ghcr.io/kramlipi/code-agent:latest \
+  experts run bug-fix --log /workspace/ci.log \
+  --verify-cmd "pytest -q" -w /workspace
+```
+
+---
+
+### Full suite on every tiny PR
+
+**Pain:** One-file change waits 40+ minutes; CI cost and merge queue pain.  
+**Fixed when:** Diff → impacted tests → selective verify command (fallback to full suite when unsure).
+
+```bash
+code-agent experts run test-intel --base-branch main -w .
+```
+
+---
+
+### Coverage gate blocks merge
+
+**Pain:** “80% not reached”; temptation to weaken the gate.  
+**Fixed when:** Agent **adds tests**; coverage command still exits `0`.
+
+```bash
+code-agent run \
+  "Add unit tests for src/pkg/new_feature.py. Match tests/ style." \
+  --verify-cmd "pytest -q --cov=pkg --cov-fail-under=80" -w .
+```
+
+---
+
+### No first-pass PR review on every change
+
+**Pain:** PRs merge with obvious bugs, secrets, or broken APIs; senior review doesn’t scale.  
+**Fixed when:** Automated **inline comments** on the PR diff (comment-only); humans still own design sign-off.
+
+```bash
+code-agent experts run code-review --pr 42 -w .
+code-agent experts run code-review --pr 42 --dry-run -w .
+```
+
+---
+
+### Same PR fails again and again
+
+**Pain:** Fix → push → new failure → all-day context switch.  
+**Fixed when:** Watcher polls checks and re-runs the fix loop until green or max attempts.
+
+```bash
+code-agent experts watch --pr 42 --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### Flaky tests burn trust
+
+**Pain:** Random red; people re-run until green; real bugs hide.  
+**Fixed when:** Known flaky tests can be skipped in selective plans **with a report**; current failures still get fixed.  
+**Honest limit:** Strong statistical flake scoring is not shipped yet — use `bug-fix` on the **current** failure and human quarantine for chronic flakes.
+
+---
+
+### Lint / type / format debt after a rule change
+
+**Pain:** New mypy/ruff/eslint rule; hundreds of files; merge blocked on style.  
+**Fixed when:** Narrow verify is green; edits stay scoped.
+
+```bash
+code-agent run "Fix mypy errors in src/utils.py only." \
+  --verify-cmd "mypy src/utils.py" -w .
+```
+
+---
+
+### Unfamiliar repo — where do I start?
+
+**Pain:** New hire / rotation; failing tests; fear of breaking main.  
+**Fixed when:** Doctor shows which verify would run; chat/UI can explore; dry-run before writes.
+
+```bash
+code-agent doctor --verify-plan "fix failing unit tests" -w .
+code-agent chat -w .
+```
+
+---
+
+### Dependency / Dependabot PR is red
+
+**Pain:** Version bump breaks callers; bot PR sits red for weeks.  
+**Fixed when:** Failed upgrade CI log → app/adapter fix → verify green → human merge.
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/dependabot-ci.log \
+  --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### AI claimed “fixed” without proof
+
+**Pain:** Chatbots invent success; trust collapses.  
+**Fixed when:** Agent cannot finish successfully unless your verify subprocess exits `0`.
+
+```bash
+code-agent run "Fix failing unit tests" --verify-cmd "pytest -q" -w .
+```
+
+---
+
+### Refactor left broken imports
+
+**Pain:** Rename/package move; tests and callers lag.  
+**Fixed when:** Language verify (`pytest`, `go test`, `mvn test`, …) exits `0`.
+
+See [Python](examples/python.md) · [Go](examples/go.md) · [Java](examples/java.md).
+
+---
+
+## DevOps / platform / SRE pains
+
+### Platform is the eternal CI babysitter
+
+**Pain:** Every team pings platform to read logs.  
+**Fixed when:** One golden-path command works on every service (same exit codes).
+
+```bash
+code-agent experts run bug-fix --log ci.log --verify-cmd "pytest -q" -w "$REPO"
+```
+
+---
+
+### CI minutes / runner cost explode
+
+**Pain:** Full suites on every push; finance asks why the bill doubled.  
+**Fixed when:** Selective tests on PRs via `test-intel`; org workflow template.
+
+```bash
+code-agent experts run test-intel --base-branch main -w .
+```
+
+---
+
+### Flapping pipelines → duplicate bot PRs
+
+**Pain:** Overnight spam of identical “fix” MRs.  
+**Fixed when:** Dedup by failure fingerprint (same failure within TTL → skip).
+
+Built into `bug-fix` — no extra flags.
+
+---
+
+### Agents must not cheat CI
+
+**Pain:** Fear that AI will edit workflows or disable checks to go green.  
+**Fixed when:** Forbidden paths (e.g. `.github/workflows`) enforced; review the draft MR.
+
+---
+
+### Missing metrics / SLO before release
+
+**Pain:** Readiness asks for latency/error metrics; manual grep does not scale.  
+**Fixed when:** Scan → gap report; optional draft MR with instrumentation.
+
+```bash
+code-agent experts run monitoring-expert -w . --dry-run
+code-agent experts run monitoring-expert -w . --publish
+```
+
+---
+
+### Alert fired — kubectl roulette
+
+**Pain:** PagerDuty noise; tribal knowledge; manual prod edits.  
+**Fixed when:** Alert → code/config remediations → health verify → draft MR (start with `--dry-run`).
+
+```bash
+code-agent experts run sre-expert \
+  --log ./alert.json \
+  --verify-cmd "curl -sf http://localhost:8080/health" \
+  -w . --dry-run
+```
+
+---
+
+### Post-deploy — is the canary safe?
+
+**Pain:** Metrics tick up; nobody owns go/no-go.  
+**Fixed when:** Compare to baseline → `pass` / `block` / `rollback` artifact.
+
+```bash
+code-agent experts run deploy-guard --metrics-file metrics/current.json -w .
+```
+
+---
+
+### Webhooks should trigger experts (no SSH)
+
+**Pain:** Events need HTTP intake; jump hosts do not scale.  
+**Fixed when:** `experts serve` behind auth with budget/throttle gates.
+
+```bash
+code-agent experts serve --host 0.0.0.0 --port 8787 -w /path/to/checkout
+```
+
+---
+
+### Locked-down laptops (no local pip)
+
+**Pain:** Security blocks local Python installs.  
+**Fixed when:** Official image + mounted workspace.
+
+```bash
+docker pull ghcr.io/kramlipi/code-agent:latest
+# see Quick Start for docker-ui.sh
+```
+
+---
+
+### Nightly job red for days
+
+**Pain:** Scheduled pipeline fails unnoticed until Monday.  
+**Fixed when:** On `failure()`, run `bug-fix` → draft MR + notify (wire in Actions/GitLab).
+
+---
+
+### Compliance — what did the bot change?
+
+**Pain:** SOC2 / customer asks for an audit trail.  
+**Fixed when:** Every run leaves artifacts under `.code-agent/runs/` (signals, verify, diff).
+
+---
+
+## What we are not (yet)
+
+| Pain | Reality |
+|------|---------|
+| “Review every PR like a senior” | We babysit **CI green**, not design review |
+| “Auto-mark flaky and forget” | No strong flake scorer yet — fix current failure; quarantine by policy |
+| “Edit workflows to make green” | **Blocked** by safety |
+| “Fix Terraform/Helm as a first-class expert” | Use custom `--verify-cmd` today; dedicated IaC path is later |
+| “Replace staging / kubectl” | Agent edits **code**; pair with `deploy-guard` for metrics gates |
+
+---
+
+## Quick picker
+
+| I need to… | Start here |
+|------------|------------|
+| Fix CI from a log | `experts run bug-fix --log …` |
+| Run fewer tests on a PR | `experts run test-intel` |
+| Raise coverage | `run` / `bug-fix` + cov verify |
+| Babysit a flapping PR | `experts watch --pr N` |
+| Find missing metrics | `experts run monitoring-expert` |
+| Alert → code fix | `experts run sre-expert` |
+| Post-deploy metrics gate | `experts run deploy-guard` |
+| Prove “done” | always `--verify-cmd` |
+| No local Python | Docker / [Quick Start](quick-start.md) |
+
+---
+
+## Related
+
+- [Early adopter use cases](use-cases.md) — why / command / benefit in depth  
+- [Recipes](recipes.md) — copy-paste only  
+- [Experts](experts.md) — inputs and outputs  
+- [Commands](commands.md) — CLI reference including verify how-to  
+
+---
+
+## Language walkthroughs {#language-walkthroughs}
+
+### Python — failing unit tests {#python-example}
+
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#python-example](use-cases.md#python-example).
+
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken build / failing pytest** | `code-agent experts run bug-fix --log /tmp/ci.log --verify-cmd "pytest -q" -w .` |
+| **Increase coverage** | `code-agent run "increase unit test coverage" --verify-cmd "pytest -q --cov=PKG --cov-fail-under=80" -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+End-to-end below: **create a failing test → fix with code-agent**.
+
+**Full narrative tutorial:** [Fix Failing Python Tests Until pytest Is Green](../articles/tutorial-python-failing-tests.md)
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+
+---
+
+## 1. Create a failing test (in your repo)
+
+```bash
+mkdir -p /tmp/py-demo && cd /tmp/py-demo
+git init
+
+# Minimal package
+mkdir -p myapp tests
+cat > myapp/__init__.py <<'EOF'
+def add(a: int, b: int) -> int:
+    return a + b
+EOF
+
+cat > myapp/calc.py <<'EOF'
+def add(a: int, b: int) -> int:
+    return a - b   # BUG: should be +
+EOF
+
+cat > tests/test_calc.py <<'EOF'
+from myapp.calc import add
+
+def test_add():
+    assert add(2, 3) == 5
+EOF
+
+pip install pytest
+pytest -q
+```
+
+**Expected (failure):**
+
+```text
+FAILED tests/test_calc.py::test_add - assert -1 == 5
+1 failed
+```
+
+**Save the log:**
+
+```bash
+pytest -q 2>&1 | tee /tmp/pytest.log
+```
+
+---
+
+## 2. Fix with `code-agent run` (prompt mode)
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix the failing test in tests/test_calc.py. The add() function in myapp/calc.py is wrong. Run pytest -q until all tests pass. Change only what is needed." \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo
+```
+
+### Flags explained
+
+| Flag | Value | Meaning |
+|------|-------|---------|
+| `"..."` | task text | What you want — plain English |
+| `--verify-cmd` | `pytest -q` | Agent must run this and get exit `0` before finishing |
+| `-w` | `/tmp/py-demo` | **Workspace** — only this repo is edited |
+
+**Expected:**
+
+```text
+Status: done
+Files: myapp/calc.py
+```
+
+**Verify yourself:**
+
+```bash
+cd /tmp/py-demo && pytest -q
+# 1 passed
+```
+
+---
+
+## 3. Fix with `bug-fix` expert (CI log mode)
+
+Best when CI already failed and you have a log file.
+
+```bash
+cd /tmp/py-demo
+pytest -q 2>&1 | tee /tmp/pytest.log
+
+code-agent experts run bug-fix \
+  --log /tmp/pytest.log \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo
+```
+
+### Flags explained
+
+| Flag | Meaning | Why use it |
+|------|---------|------------|
+| `--log` | Path to pytest output | Expert **parses** failures (file, line, assertion) — no guessing |
+| `--verify-cmd` | Must match what CI runs | Same proof as GitHub Actions |
+| `-w` | Your Python repo | Agent edits `myapp/` and `tests/` here |
+| `--dry-run` | (optional) Try without publish | First safe run |
+| `--publish` | (optional) Open draft PR | After local verify works |
+
+**Parser support:** pytest failures, coverage failures, Python tracebacks, mypy.
+
+---
+
+## 4. Raise coverage (add missing unit tests)
+
+Break coverage on purpose:
+
+```bash
+cat >> myapp/calc.py <<'EOF'
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+EOF
+
+# No test for multiply yet
+pytest -q --cov=myapp --cov-report=term-missing --cov-fail-under=80 2>&1 | tee /tmp/cov.log
+```
+
+Fix:
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/cov.log \
+  --verify-cmd "pytest -q --cov=myapp --cov-report=term-missing --cov-fail-under=80" \
+  -w /tmp/py-demo
+```
+
+Agent adds tests in `tests/` — does **not** remove `multiply()` to cheat.
+
+---
+
+## 5. Open a merge request
+
+```bash
+cd /tmp/py-demo
+git add . && git commit -m "initial"
+git remote add origin git@github.com:YOU/py-demo.git
+git push -u origin main
+
+pytest -q 2>&1 | tee /tmp/pytest.log
+
+code-agent experts run bug-fix \
+  --log /tmp/pytest.log \
+  --verify-cmd "pytest -q" \
+  -w /tmp/py-demo \
+  --publish \
+  --base-branch main
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--publish` | Commit fix, push branch, open **draft PR** via `gh` |
+| `--base-branch` | PR merges into `main` |
+
+---
+
+## Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Forgot `-w` | Agent edits wrong directory |
+| Wrong `--verify-cmd` | Use exact CI command: `pytest -q` not `python -m pytest` if CI uses `pytest -q` |
+| No venv activated | `code-agent: command not found` |
+| No `GEMINI_API_KEY` | `doctor` fails — set key first |
+
+[← Back to Quick Start](../quick-start.md)
+
+### Go — failing unit tests {#go-example}
+
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#go-example](use-cases.md#go-example).
+
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken Go build / failing tests** | `code-agent experts run bug-fix --log /tmp/go.log --verify-cmd "go test ./..." -w .` |
+| **Increase coverage** | `code-agent run "increase unit test coverage" --verify-cmd "go test ./..." -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+Go projects use **`go test`**, not `pytest`. Always set `--verify-cmd "go test ..."`.
+
+**Full narrative tutorial:** [Fix Failing Go Tests Until `go test` Is Green](../articles/tutorial-go-failing-tests.md)
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+
+---
+
+## 1. Create a failing test
+
+```bash
+mkdir -p /tmp/go-demo && cd /tmp/go-demo
+git init
+go mod init example.com/demo
+
+cat > main.go <<'EOF'
+package main
+
+func Add(a, b int) int {
+	return a - b // BUG: should be +
+}
+EOF
+
+cat > main_test.go <<'EOF'
+package main
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+	if got := Add(2, 3); got != 5 {
+		t.Errorf("Add(2,3) = %d; want 5", got)
+	}
+}
+EOF
+
+go test -v ./...
+```
+
+**Expected (failure):**
+
+```text
+--- FAIL: TestAdd (0.00s)
+    main_test.go:6: Add(2,3) = -1; want 5
+FAIL
+```
+
+**Save log:**
+
+```bash
+go test -v ./... 2>&1 | tee /tmp/go-test.log
+```
+
+---
+
+## 2. Fix with `code-agent run`
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix failing TestAdd in main_test.go. The Add function in main.go has a bug. Run 'go test -v ./...' until all tests pass. Minimal change only." \
+  --verify-cmd "go test -v ./..." \
+  -w /tmp/go-demo
+```
+
+### Flags explained
+
+| Flag | Why for Go |
+|------|------------|
+| `--verify-cmd "go test -v ./..."` | **Must** be Go's test runner — never `pytest` |
+| `-w /tmp/go-demo` | Module root (where `go.mod` lives) |
+
+**Expected:**
+
+```text
+Status: done
+Files: main.go
+```
+
+```bash
+cd /tmp/go-demo && go test -v ./...
+# PASS
+```
+
+---
+
+## 3. Fix with `bug-fix` expert (from log)
+
+```bash
+cd /tmp/go-demo
+go test -v ./... 2>&1 | tee /tmp/go-test.log
+
+code-agent experts run bug-fix \
+  --log /tmp/go-test.log \
+  --verify-cmd "go test -v ./..." \
+  -w /tmp/go-demo
+```
+
+### Flags explained
+
+| Flag | Meaning |
+|------|---------|
+| `--log /tmp/go-test.log` | Go compiler/test errors parsed automatically |
+| `--verify-cmd` | Same command CI uses |
+| `-w` | Go module root |
+| `--dry-run` | Test locally first, no MR |
+| `--publish` | Push fix branch + draft PR |
+
+**Go parser catches:** `main.go:line: undefined`, test failures, build errors.
+
+---
+
+## 4. Fix tests in another repo (real world)
+
+`code-agent` install lives in one folder; **your Go app** in another:
+
+```bash
+# Terminal 1 — your Go project
+cd ~/karm/my-go-service
+go test -v ./... 2>&1 | tee /tmp/go-ci.log
+
+# Terminal 2 — run agent
+source ~/karm/ai-code-agent/.venv/bin/activate
+
+code-agent experts run bug-fix \
+  --log /tmp/go-ci.log \
+  --verify-cmd "go test -v ./..." \
+  -w ~/karm/my-go-service
+```
+
+!!! warning
+    **One** `-w` pointing at the Go repo. Do not point `-w` at `ai-code-agent`.
+
+---
+
+## 5. CI babysit (PR keeps failing)
+
+```bash
+code-agent experts watch \
+  --pr 42 \
+  --verify-cmd "go test -v ./..." \
+  -w ~/karm/my-go-service
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--pr 42` | Watch GitHub PR #42 checks |
+| `--verify-cmd` | Re-run after each fix attempt |
+| `--publish` / `--no-publish` | Push fixes to PR branch (default: publish on) |
+
+---
+
+## Common mistakes
+
+| Mistake | Result |
+|---------|--------|
+| `--verify-cmd "pytest -q"` on Go repo | Agent runs wrong tool — fails |
+| `-w` not at `go.mod` root | Cannot find package |
+| Running `go test` outside module | "go.mod not found" |
+
+[← Back to Quick Start](../quick-start.md)
+
+### Java — failing unit tests {#java-example}
+
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [use-cases.md#java-example](use-cases.md#java-example).
+
+
+## What do you want?
+
+| Goal | Command |
+|------|---------|
+| **Fix a broken Maven/Gradle build** | `code-agent experts run bug-fix --log /tmp/mvn.log --verify-cmd "mvn test -q" -w .` |
+| **Increase coverage** | `code-agent run "add unit tests to raise coverage" --verify-cmd "mvn test -q" -w .` |
+| **PR line review** | `code-agent experts run code-review --pr N -w .` |
+
+Java uses **JUnit** + **Maven** or **Gradle**. Set `--verify-cmd` to match your build tool.
+
+**Full narrative tutorial:** [Fix Failing Java Tests Until Maven/Gradle Is Green](../articles/tutorial-java-failing-tests.md)
+
+Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+
+!!! info "Parser note"
+    Dedicated Java/JUnit log parser is limited — `bug-fix` uses **generic error parsing** plus the agent reading test output. **`--verify-cmd` is critical** so the agent proves `mvn test` or `./gradlew test` passes.
+
+---
+
+## Option A — Maven project
+
+### 1. Create a failing test
+
+```bash
+mkdir -p /tmp/java-demo && cd /tmp/java-demo
+git init
+
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo \
+  -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+cd demo
+
+# Introduce bug in main code
+cat > src/main/java/com/example/App.java <<'EOF'
+package com.example;
+
+public class App {
+    public static int add(int a, int b) {
+        return a - b; // BUG: should be +
+    }
+}
+EOF
+
+cat > src/test/java/com/example/AppTest.java <<'EOF'
+package com.example;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class AppTest {
+    @Test
+    public void testAdd() {
+        assertEquals(5, App.add(2, 3));
+    }
+}
+EOF
+
+mvn test
+```
+
+**Expected:** `BUILD FAILURE` with assertion error in output.
+
+**Save log:**
+
+```bash
+mvn test 2>&1 | tee /tmp/java-maven.log
+```
+
+### 2. Fix with code-agent
+
+```bash
+source /path/to/ai-code-agent/.venv/bin/activate
+
+code-agent run \
+  "Fix failing AppTest. The add method in App.java returns wrong result. Run 'mvn test' until BUILD SUCCESS. Change only what is needed." \
+  --verify-cmd "mvn test -q" \
+  -w /tmp/java-demo/demo
+```
+
+### 3. Fix with bug-fix expert
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-maven.log \
+  --verify-cmd "mvn test -q" \
+  -w /tmp/java-demo/demo
+```
+
+### Flags explained
+
+| Flag | Value | Why |
+|------|-------|-----|
+| `-w` | Maven module root (`pom.xml` here) | Agent edits `src/main` and `src/test` |
+| `--verify-cmd` | `mvn test -q` | Must match CI — quiet Maven like Actions |
+| `--log` | Maven surefire output | Failure class + line from log |
+
+---
+
+## Option B — Gradle project
+
+### 1. Create project + failing test
+
+```bash
+mkdir -p /tmp/gradle-demo && cd /tmp/gradle-demo
+git init
+
+gradle init --type java-application --dsl kotlin --test-framework junit-jupiter --package com.example --project-name demo
+cd demo
+
+# Edit generated code to fail (similar App class + test)
+./gradlew test
+```
+
+**Save log:**
+
+```bash
+./gradlew test 2>&1 | tee /tmp/java-gradle.log
+```
+
+### 2. Fix with code-agent
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-gradle.log \
+  --verify-cmd "./gradlew test" \
+  -w /tmp/gradle-demo/demo
+```
+
+| Flag | Why |
+|------|-----|
+| `--verify-cmd "./gradlew test"` | Gradle wrapper — same as CI |
+| `-w` | Directory with `build.gradle.kts` |
+
+---
+
+## Add missing unit tests (coverage)
+
+For Java coverage (JaCoCo), use verify command that includes coverage gate:
+
+```bash
+# Example — adjust to your pom.xml / build.gradle
+mvn test jacoco:report 2>&1 | tee /tmp/java-cov.log
+
+code-agent experts run bug-fix \
+  --log /tmp/java-cov.log \
+  --verify-cmd "mvn test jacoco:report" \
+  -w /path/to/java-project
+```
+
+Agent adds tests under `src/test/java/` for uncovered methods.
+
+---
+
+## Open merge request
+
+```bash
+code-agent experts run bug-fix \
+  --log /tmp/java-maven.log \
+  --verify-cmd "mvn test -q" \
+  -w /path/to/java-project \
+  --publish \
+  --base-branch main
+```
+
+| Flag | Meaning |
+|------|---------|
+| `--publish` | Creates branch + draft PR with fix |
+| `--base-branch` | Target branch for MR |
+
+Requires `gh auth login`.
+
+---
+
+## Common mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| `-w` at wrong level | Must be folder with `pom.xml` or `build.gradle` |
+| `mvn test` vs `mvn verify` | Use **exact** CI command in `--verify-cmd` |
+| JDK not installed | Install JDK 17+; `java -version` must work |
+| Mixing Maven and Gradle flags | Pick one build tool per project |
+
+[← Back to Quick Start](../quick-start.md)

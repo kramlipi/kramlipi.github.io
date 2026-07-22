@@ -6,6 +6,9 @@ description: >-
 keywords: code-agent cli, tab completion, install-completion, help, run, chat, doctor, experts run, verify-cmd
 ---
 
+!!! info "Also on merged page"
+    Full content below is preserved. Same section: [features.md#commands](features.md#commands).
+
 # CLI Commands
 
 Quick reference for every `code-agent` command. For copy-paste workflows see [Recipes](recipes.md).

@@ -41,7 +41,7 @@ Watch: https://github.com/kramlipi/kramlipi.github.io/actions
 | Page | URL |
 |------|-----|
 | Home | https://kramlipi.github.io/ |
-| Quick start | https://kramlipi.github.io/quick-start/ |
+| Get started | https://kramlipi.github.io/get-started/ |
 | Commands | https://kramlipi.github.io/commands/ |
 
 Wait 1–3 minutes after the workflow finishes.

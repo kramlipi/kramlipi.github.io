@@ -8,11 +8,10 @@ keywords: >-
   Claude, Gemini, binary download, verify-cmd, Docker GHCR
 ---
 
+!!! info "Primary start page"
+    **[Get started](get-started.md)** is the canonical entry. This page keeps the full quick-start reference for deep links.
+
 # Quick Start
-
-# KramLipi Code agent
-
-**Increase your code coverage and review automatically.**
 
 Developers ship code faster — but unit tests and failed builds pile up.
 This agent fixes that in the **CI pipeline** (and locally with the same commands).
@@ -853,5 +852,6 @@ code-agent experts watch --pr 42 --verify-cmd "pytest -q" -w /path/to/repo
 - [Python failing tests](examples/python.md)
 - [Go failing tests](examples/go.md)
 - [Java failing tests](examples/java.md)
-- [All CLI flags](commands.md)
-- [Experts reference](experts.md)
+- [All CLI flags](features.md#commands)
+- [Experts reference](features.md#experts)
+- [Get started](get-started.md) (canonical entry)

@@ -113,30 +113,9 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Get started: get-started.md
-  - Quick Start: quick-start.md
-  - Ultra intelligence (cascade): ultra-intelligence.md
-  - Code review CI: code-review-ci.md
-  - Release notes: release-notes.md
   - Use cases: use-cases.md
-  - Pains: pains.md
-  - Examples:
-      - Python failing tests: examples/python.md
-      - Go failing tests: examples/go.md
-      - Java failing tests: examples/java.md
-  - Tutorials:
-      - All tutorials: articles/index.md
-      - Python pytest green: articles/tutorial-python-failing-tests.md
-      - Go test green: articles/tutorial-go-failing-tests.md
-      - Java Maven / Gradle: articles/tutorial-java-failing-tests.md
-      - Raise coverage: articles/tutorial-raise-coverage.md
-      - Bug-fix from CI log: articles/tutorial-bugfix-ci-log.md
-      - PR code review: articles/tutorial-pr-code-review.md
-      - Ultra intelligence (missing Go): articles/tutorial-ultra-intelligence-missing-go.md
-  - Commands: commands.md
-  - Experts: experts.md
-  - Recipes: recipes.md
-  - Coverage: coverage.md
-  - Troubleshooting: troubleshooting.md
+  - Features: features.md
+  - Help: troubleshooting.md
 
 extra_css:
   - stylesheets/extra.css
