@@ -1,18 +1,25 @@
 ---
 title: Kramlipi Docs — code-agent
 description: >-
-  Symptom: red CI, buried logs, stalled coverage, review that does not scale.
-  Solution: Kramlipi AI Code Agent — verify-gated coverage, bug-fix, and PR review.
+  Red CI, buried logs, stalled coverage, review that does not scale.
+  Kramlipi AI Code Agent keeps working until your pipeline goes green.
 keywords: >-
   increase code coverage, fix broken CI, PR code review comments, code-agent,
   failing unit tests, GEMINI_API_KEY, verify-cmd
 ---
 
-# KramLipi Code agent
+# Kramlipi Code Agent
 
-**Symptom → solution.**
+**Stop babysitting red CI.**
 
-Symptom: your PR is red, the CI log is thousands of lines, coverage gates stall merges, and review still sits on humans—while chat AI claims “fixed” with no proof. You lose nights to archaeology instead of shipping. Solution: **Kramlipi AI Code Agent**. It reads your git repo and the failure signal, edits with real tools, and only stops when **your** verify command exits `0`. Coverage, bug-fix, and PR line review become measured outcomes—not guesses.
+Chat AI says “fixed.” The pipeline is still red. Coverage still blocks merge. Review waits in someone’s queue. You read logs at midnight instead of shipping.
+
+**Kramlipi AI Code Agent** closes the loop. It reads your git repo and the real failure signal, edits with real tools, and keeps going until **your pipeline goes green**. Coverage, bug fixes, and PR review count only when CI is actually green—not when a model sounds confident.
+
+- **Review PRs** like a senior engineer—with full repo context, not a pasted diff
+- **Fix broken builds** by parsing the log, patching code, and re-running your CI command
+- **Raise coverage** with tests until your gate passes
+- **Run on your terms**—binary on laptop or in CI, LLM of your choice, source code never leaves your boundary
 
 [How kramlipi helps — visual collage →](get-started.md#how-kramlipi-helps-collage)
 
