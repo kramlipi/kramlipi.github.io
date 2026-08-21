@@ -7,7 +7,7 @@ keywords: java junit, maven test, gradle test, code-agent failing unit test
 ---
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [use-cases.md#java-example](use-cases.md#java-example).
+    Full content below is preserved. Same section: [use-cases.md#java-example](../use-cases.md#java-example).
 
 # Java — Failing Unit Test Example
 

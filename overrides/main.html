@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  {% if page and page.meta and page.meta.robots %}
+    <meta name="robots" content="{{ page.meta.robots }}">
+  {% else %}
+    <meta name="robots" content="index, follow">
+  {% endif %}
+  {% if page and page.meta and page.meta.keywords %}
+    <meta name="keywords" content="{{ page.meta.keywords }}">
+  {% endif %}
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ config.site_url }}sitemap.xml">
+  {% set page_desc = page.meta.description if page and page.meta and page.meta.description else config.site_description %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": {{ config.site_name | tojson }},
+        "url": {{ config.site_url | tojson }},
+        "description": {{ page_desc | tojson }}
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Kramlipi code-agent",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Linux, macOS, Windows",
+        "url": {{ config.site_url | tojson }},
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    ]
+  }
+  </script>
+{% endblock %}

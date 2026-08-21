@@ -1,25 +1,25 @@
 ---
 title: Kramlipi Docs — code-agent
 description: >-
-  Red CI, buried logs, stalled coverage, review that does not scale.
-  Kramlipi AI Code Agent keeps working until your pipeline goes green.
+  Teams lose days per PR in review. Kramlipi offers a free AI code review agent
+  and keeps working on builds and coverage until your pipeline goes green.
 keywords: >-
   increase code coverage, fix broken CI, PR code review comments, code-agent,
   failing unit tests, GEMINI_API_KEY, verify-cmd
+robots: index, follow
 ---
 
 # Kramlipi Code Agent
 
-**Stop babysitting red CI.**
+Shipping slows down in review long before it slows down in the editor. Most teams lose roughly **five days per PR** in waits, nits, and “one more look”—work that never makes it onto the roadmap but always makes it onto the calendar.
 
-Chat AI says “fixed.” The pipeline is still red. Coverage still blocks merge. Review waits in someone’s queue. You read logs at midnight instead of shipping.
+Agents changed the shape of that work, not the need for it. Diffs arrive faster now; someone still has to sign off on correctness, intent, and risk. The job was never mostly keystrokes—it was always reading, deciding, and coordinating. AI just made that the visible bottleneck.
 
-**Kramlipi AI Code Agent** closes the loop. It reads your git repo and the real failure signal, edits with real tools, and keeps going until **your pipeline goes green**. Coverage, bug fixes, and PR review count only when CI is actually green—not when a model sounds confident.
+**Kramlipi** handles both sides. For review: a first pass with full repo context, posted as line comments on the PR—not a chatbot paraphrase of the diff. For red CI and coverage gates: read the failure, edit the code, run your pipeline again, repeat until **green**. No green, no done.
 
-- **Review PRs** like a senior engineer—with full repo context, not a pasted diff
-- **Fix broken builds** by parsing the log, patching code, and re-running your CI command
-- **Raise coverage** with tests until your gate passes
-- **Run on your terms**—binary on laptop or in CI, LLM of your choice, source code never leaves your boundary
+**Code review is free.** Try it at **[kramlipi.github.io](https://kramlipi.github.io/)**, or skip to [review a PR](#review-a-pr-inline-line-comments) in the quick start below.
+
+Download a binary for laptop or CI, bring your own LLM, keep your source inside your boundary.
 
 [How kramlipi helps — visual collage →](get-started.md#how-kramlipi-helps-collage)
 

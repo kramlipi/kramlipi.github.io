@@ -15,6 +15,7 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  custom_dir: overrides
   language: en
   logo: assets/logo.svg
   favicon: assets/favicon.svg
@@ -55,6 +56,9 @@ theme:
     - toc.follow
     - announce.dismiss
 
+hooks:
+  - hooks.py
+
 plugins:
   - search:
       lang: en
@@ -62,10 +66,15 @@ plugins:
   - meta
   - minify:
       minify_html: true
+      htmlmin_opts:
+        remove_optional_attribute_quotes: false
   - social:
       cards_layout_options:
         background_color: "#3949ab"
         color: "#ffffff"
+
+exclude_docs: |
+  GITHUB-PAGES-ROOT-URL.md
 
 extra:
   generator: false

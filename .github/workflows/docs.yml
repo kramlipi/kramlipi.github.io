@@ -34,6 +34,15 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build --strict
 
+      - name: Ensure GitHub Pages SEO files
+        run: |
+          test -f site/.nojekyll
+          test -f site/sitemap.xml
+          test -f site/robots.txt
+          grep -Eqi 'name=["'\'']?robots' site/index.html
+          grep -q 'index, follow' site/index.html
+          ! grep -q 'www.kramlipi.github.io' site/index.html
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -956,7 +956,7 @@ docker pull ghcr.io/kramlipi/code-agent:latest
 
 End-to-end below: **create a failing test → fix with code-agent**.
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md)
 
 ---
 
@@ -1129,7 +1129,7 @@ code-agent experts run bug-fix \
 | No venv activated | `code-agent: command not found` |
 | No `GEMINI_API_KEY` | `doctor` fails — set key first |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
 
 ### Go — failing unit tests {#go-example}
 
@@ -1143,7 +1143,7 @@ code-agent experts run bug-fix \
 
 Go projects use **`go test`**, not `pytest`. Always set `--verify-cmd "go test ..."`.
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md)
 
 ---
 
@@ -1299,7 +1299,7 @@ code-agent experts watch \
 | `-w` not at `go.mod` root | Cannot find package |
 | Running `go test` outside module | "go.mod not found" |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
 
 ### Java — failing unit tests {#java-example}
 
@@ -1313,7 +1313,7 @@ code-agent experts watch \
 
 Java uses **JUnit** + **Maven** or **Gradle**. Set `--verify-cmd` to match your build tool.
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md)
 
 !!! info "Parser note"
     Dedicated Java/JUnit log parser is limited — `bug-fix` uses **generic error parsing** plus the agent reading test output. **`--verify-cmd` is critical** so the agent proves `mvn test` or `./gradlew test` passes.
@@ -1483,7 +1483,7 @@ Requires `gh auth login`.
 | JDK not installed | Install JDK 17+; `java -version` must work |
 | Mixing Maven and Gradle flags | Pick one build tool per project |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
 
 ---
 
@@ -1813,9 +1813,9 @@ docker pull ghcr.io/kramlipi/code-agent:latest
 
 End-to-end below: **create a failing test → fix with code-agent**.
 
-**Full narrative tutorial:** [Fix Failing Python Tests Until pytest Is Green](../articles/tutorial-python-failing-tests.md)
+**Full narrative tutorial:** [Fix Failing Python Tests Until pytest Is Green](articles/tutorial-python-failing-tests.md)
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md) · [All tutorials](articles/index.md)
 
 ---
 
@@ -1988,7 +1988,7 @@ code-agent experts run bug-fix \
 | No venv activated | `code-agent: command not found` |
 | No `GEMINI_API_KEY` | `doctor` fails — set key first |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
 
 ### Go — failing unit tests {#go-example}
 
@@ -2006,9 +2006,9 @@ code-agent experts run bug-fix \
 
 Go projects use **`go test`**, not `pytest`. Always set `--verify-cmd "go test ..."`.
 
-**Full narrative tutorial:** [Fix Failing Go Tests Until `go test` Is Green](../articles/tutorial-go-failing-tests.md)
+**Full narrative tutorial:** [Fix Failing Go Tests Until `go test` Is Green](articles/tutorial-go-failing-tests.md)
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md) · [All tutorials](articles/index.md)
 
 ---
 
@@ -2164,7 +2164,7 @@ code-agent experts watch \
 | `-w` not at `go.mod` root | Cannot find package |
 | Running `go test` outside module | "go.mod not found" |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
 
 ### Java — failing unit tests {#java-example}
 
@@ -2182,9 +2182,9 @@ code-agent experts watch \
 
 Java uses **JUnit** + **Maven** or **Gradle**. Set `--verify-cmd` to match your build tool.
 
-**Full narrative tutorial:** [Fix Failing Java Tests Until Maven/Gradle Is Green](../articles/tutorial-java-failing-tests.md)
+**Full narrative tutorial:** [Fix Failing Java Tests Until Maven/Gradle Is Green](articles/tutorial-java-failing-tests.md)
 
-Home quick start (binary first): [Get started](../get-started.md) · [Use cases](../use-cases.md) · [All tutorials](../articles/index.md)
+Home quick start (binary first): [Get started](get-started.md) · [Use cases](use-cases.md) · [All tutorials](articles/index.md)
 
 !!! info "Parser note"
     Dedicated Java/JUnit log parser is limited — `bug-fix` uses **generic error parsing** plus the agent reading test output. **`--verify-cmd` is critical** so the agent proves `mvn test` or `./gradlew test` passes.
@@ -2354,4 +2354,4 @@ Requires `gh auth login`.
 | JDK not installed | Install JDK 17+; `java -version` must work |
 | Mixing Maven and Gradle flags | Pick one build tool per project |
 
-[← Back to Quick Start](../quick-start.md)
+[← Back to Quick Start](quick-start.md)
