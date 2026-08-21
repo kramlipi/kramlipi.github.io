@@ -38,27 +38,25 @@ jobs:
         run: |
           test -f site/.nojekyll
           test -f site/sitemap.xml
-          test -f site/sitemap.xml.gz
+          test -f site/sitemap/index.html
           test -f site/robots.txt
+          test ! -f site/sitemap.xml.gz
           grep -Eqi 'name=["'\'']?robots' site/index.html
           grep -q 'index, follow' site/index.html
           ! grep -q 'www.kramlipi.github.io' site/index.html
           python - <<'PY'
-          import gzip
           import xml.etree.ElementTree as ET
           from pathlib import Path
 
           sitemap = Path("site/sitemap.xml")
           ET.parse(sitemap)
           xml = sitemap.read_text(encoding="utf-8")
-          assert xml.startswith("<?xml"), "sitemap must start with XML declaration"
+          assert xml.startswith('<?xml version="1.0" encoding="UTF-8"?>'), xml.splitlines()[0]
           assert "<urlset" in xml and "</urlset>" in xml, "sitemap must contain urlset"
           urls = [el.text.strip() for el in ET.parse(sitemap).iter() if el.tag.endswith("loc")]
           assert urls, "sitemap must list at least one URL"
           for url in urls:
               assert url.startswith("https://kramlipi.github.io/"), url
-          gz = gzip.decompress(Path("site/sitemap.xml.gz").read_bytes()).decode("utf-8")
-          assert gz == xml, "sitemap.xml.gz must match sitemap.xml"
           print(f"sitemap OK ({len(urls)} URLs)")
           PY
 

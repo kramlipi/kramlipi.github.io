@@ -173,6 +173,7 @@ The agent **refuses** to edit `.github/workflows/**` to cheat CI.
 ## Site
 
 - **Docs:** [https://kramlipi.github.io/](https://kramlipi.github.io/)
+- **Sitemap (XML):** [https://kramlipi.github.io/sitemap.xml](https://kramlipi.github.io/sitemap.xml)
 - **Product:** [github.com/kramlipi/ai-code-agent](https://github.com/kramlipi/ai-code-agent)
 - **Binaries:** [Drive](https://drive.google.com/drive/folders/11iuNWM13SjrlKastaA_2FaMz4tGg9_QX?usp=sharing) · [Releases](https://github.com/kramlipi/code-agent-binaries/releases)
 - **Search:** `Ctrl+K` / `Cmd+K`

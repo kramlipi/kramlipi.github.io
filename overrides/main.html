@@ -11,6 +11,7 @@
     <meta name="keywords" content="{{ page.meta.keywords }}">
   {% endif %}
   <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ config.site_url }}sitemap.xml">
+  <link rel="help" title="HTML Sitemap" href="{{ config.site_url }}sitemap/">
   {% set page_desc = page.meta.description if page and page.meta and page.meta.description else config.site_description %}
   <script type="application/ld+json">
   {

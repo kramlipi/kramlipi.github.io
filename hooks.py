@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import gzip
+import html
 import re
 from datetime import date
 from pathlib import Path
@@ -23,7 +23,6 @@ def on_post_build(config, **kwargs):
     Without .nojekyll, Pages may run Jekyll and Google Search Console
     reports "Couldn't fetch" for sitemap.xml (browsers can still get 200).
     """
-    ET.register_namespace("", SITEMAP_NS)
     site_dir = Path(config["site_dir"])
     site_url = (config.get("site_url") or "").rstrip("/")
     if not site_url:
@@ -41,11 +40,12 @@ def on_post_build(config, **kwargs):
     urls = _read_sitemap_urls(sitemap, site_url)
     urls = [url for url in urls if url not in noindex_urls]
     _write_sitemap(sitemap, urls)
-    _write_sitemap_gz(site_dir / "sitemap.xml.gz", sitemap)
+    _write_html_sitemap(site_dir, site_url, urls)
+    _remove_gz_sitemap(site_dir)
 
 
-def _canonical_url(site_dir: Path, html: Path, site_url: str) -> str:
-    rel = html.relative_to(site_dir).as_posix()
+def _canonical_url(site_dir: Path, html_path: Path, site_url: str) -> str:
+    rel = html_path.relative_to(site_dir).as_posix()
     if rel.endswith("/index.html"):
         rel = rel[: -len("index.html")]
     elif rel == "index.html":
@@ -55,13 +55,13 @@ def _canonical_url(site_dir: Path, html: Path, site_url: str) -> str:
 
 def _noindex_urls(site_dir: Path, site_url: str) -> set[str]:
     found: set[str] = set()
-    for html in site_dir.rglob("*.html"):
+    for html_path in site_dir.rglob("*.html"):
         try:
-            head = html.read_bytes()[:16384]
+            head = html_path.read_bytes()[:16384]
         except OSError:
             continue
         if NOINDEX_RE.search(head):
-            found.add(_canonical_url(site_dir, html, site_url))
+            found.add(_canonical_url(site_dir, html_path, site_url))
     return found
 
 
@@ -83,18 +83,55 @@ def _read_sitemap_urls(sitemap: Path, site_url: str) -> list[str]:
 
 
 def _write_sitemap(sitemap: Path, urls: list[str]) -> None:
-    root = ET.Element(f"{{{SITEMAP_NS}}}urlset")
     today = date.today().isoformat()
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
     for loc in urls:
-        url_el = ET.SubElement(root, f"{{{SITEMAP_NS}}}url")
-        loc_el = ET.SubElement(url_el, f"{{{SITEMAP_NS}}}loc")
-        loc_el.text = loc
-        lastmod_el = ET.SubElement(url_el, f"{{{SITEMAP_NS}}}lastmod")
-        lastmod_el.text = today
-    tree = ET.ElementTree(root)
-    tree.write(sitemap, encoding="utf-8", xml_declaration=True)
+        lines.extend(
+            [
+                "  <url>",
+                f"    <loc>{html.escape(loc, quote=True)}</loc>",
+                f"    <lastmod>{today}</lastmod>",
+                "  </url>",
+            ]
+        )
+    lines.append("</urlset>")
+    lines.append("")
+    sitemap.write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
-def _write_sitemap_gz(gz_path: Path, sitemap: Path) -> None:
-    with sitemap.open("rb") as src, gzip.open(gz_path, "wb", compresslevel=9) as dst:
-        dst.write(src.read())
+def _write_html_sitemap(site_dir: Path, site_url: str, urls: list[str]) -> None:
+    page_dir = site_dir / "sitemap"
+    page_dir.mkdir(exist_ok=True)
+    items = "\n".join(
+        f'    <li><a href="{html.escape(url, quote=True)}">{html.escape(url)}</a></li>'
+        for url in urls
+    )
+    page = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sitemap - Kramlipi Docs</title>
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{site_url}/sitemap/">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{site_url}/sitemap.xml">
+</head>
+<body>
+  <h1>Sitemap</h1>
+  <p>XML sitemap for crawlers: <a href="{site_url}/sitemap.xml">{site_url}/sitemap.xml</a></p>
+  <ul>
+{items}
+  </ul>
+</body>
+</html>
+"""
+    (page_dir / "index.html").write_text(page, encoding="utf-8", newline="\n")
+
+
+def _remove_gz_sitemap(site_dir: Path) -> None:
+    gz = site_dir / "sitemap.xml.gz"
+    if gz.is_file():
+        gz.unlink()
