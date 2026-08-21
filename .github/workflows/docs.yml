@@ -38,10 +38,29 @@ jobs:
         run: |
           test -f site/.nojekyll
           test -f site/sitemap.xml
+          test -f site/sitemap.xml.gz
           test -f site/robots.txt
           grep -Eqi 'name=["'\'']?robots' site/index.html
           grep -q 'index, follow' site/index.html
           ! grep -q 'www.kramlipi.github.io' site/index.html
+          python - <<'PY'
+          import gzip
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          sitemap = Path("site/sitemap.xml")
+          ET.parse(sitemap)
+          xml = sitemap.read_text(encoding="utf-8")
+          assert xml.startswith("<?xml"), "sitemap must start with XML declaration"
+          assert "<urlset" in xml and "</urlset>" in xml, "sitemap must contain urlset"
+          urls = [el.text.strip() for el in ET.parse(sitemap).iter() if el.tag.endswith("loc")]
+          assert urls, "sitemap must list at least one URL"
+          for url in urls:
+              assert url.startswith("https://kramlipi.github.io/"), url
+          gz = gzip.decompress(Path("site/sitemap.xml.gz").read_bytes()).decode("utf-8")
+          assert gz == xml, "sitemap.xml.gz must match sitemap.xml"
+          print(f"sitemap OK ({len(urls)} URLs)")
+          PY
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -58,3 +77,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Checkout for IndexNow script
+        uses: actions/checkout@v4
+
+      - name: Verify live sitemap for Google Search Console
+        run: |
+          for i in 1 2 3 4 5 6; do
+            if curl -fsS -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" \
+              "https://kramlipi.github.io/sitemap.xml" | grep -q "<urlset"; then
+              echo "Live sitemap readable"
+              exit 0
+            fi
+            echo "Waiting for Pages CDN... ($i/6)"
+            sleep 10
+          done
+          echo "Live sitemap not readable yet" >&2
+          exit 1
+
+      - name: Notify IndexNow (Bing and search partners)
+        run: bash scripts/submit-indexnow.sh
