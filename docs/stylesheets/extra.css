@@ -134,45 +134,70 @@
   letter-spacing: 0.04em;
 }
 
-/* Blog index cards */
+/* Blog index cards — 2-up grid, high contrast (not theme link blue) */
 .kl-blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 0.85rem;
-  margin: 1.25rem 0 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0 2.5rem;
+  max-width: 920px;
 }
 
 .kl-blog-card {
-  display: block;
-  padding: 1rem 1.05rem;
-  border-radius: 0.65rem;
-  border: 1px solid var(--kl-border);
-  background: linear-gradient(160deg, rgba(249, 115, 22, 0.08), rgba(255, 255, 255, 0.02));
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.35rem;
+  min-height: 9.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #121212;
+  color: #f3f4f6 !important;
   text-decoration: none !important;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
-.kl-blog-card:hover {
+.kl-blog-card:hover,
+.kl-blog-card:focus-visible {
   transform: translateY(-2px);
-  border-color: rgba(249, 115, 22, 0.45);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  background: #181818;
+  border-color: rgba(249, 115, 22, 0.65);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+  color: #ffffff !important;
 }
 
 .kl-blog-card h3 {
-  margin: 0 0 0.45rem;
-  font-size: 1rem;
-  color: inherit;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #ffffff !important;
+  letter-spacing: -0.01em;
 }
 
 .kl-blog-card p {
   margin: 0;
-  font-size: 0.86rem;
-  line-height: 1.45;
-  opacity: 0.82;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #d1d5db !important;
+  opacity: 1;
 }
 
 .kl-blog-card .kl-tag {
-  margin-bottom: 0.55rem;
+  margin: 0 0 0.15rem;
+  align-self: flex-start;
+  background: rgba(249, 115, 22, 0.18);
+  border-color: rgba(249, 115, 22, 0.45);
+  color: #fdba74;
+}
+
+@media (max-width: 760px) {
+  .kl-blog-grid {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
 }
 
 .md-header__title {
