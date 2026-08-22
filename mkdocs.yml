@@ -1,7 +1,7 @@
-# Kramlipi documentation hub — MkDocs Material
+# Kramlipi Docs — MkDocs Material
 # Build: mkdocs build   Serve: mkdocs serve
 
-site_name: Kramlipi Docs
+site_name: Kramlipi
 site_url: https://kramlipi.github.io/
 site_description: >-
   code-agent — AI CLI for CI failures, failing unit tests, code coverage,
@@ -22,21 +22,24 @@ theme:
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: deep purple
+      primary: black
+      accent: orange
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: deep purple
+      primary: black
+      accent: orange
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   font:
     text: Inter
     code: JetBrains Mono
+  icon:
+    admonition:
+      note: material/information-outline
   features:
     - navigation.instant
     - navigation.instant.progress
@@ -45,6 +48,8 @@ theme:
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
+    - navigation.indexes
+    - navigation.path
     - navigation.top
     - navigation.footer
     - search.suggest
@@ -52,6 +57,7 @@ theme:
     - search.share
     - content.code.copy
     - content.code.annotate
+    - content.action.edit
     - content.tabs.link
     - toc.follow
     - announce.dismiss
@@ -70,17 +76,21 @@ plugins:
         remove_optional_attribute_quotes: false
   - social:
       cards_layout_options:
-        background_color: "#3949ab"
-        color: "#ffffff"
+        background_color: "#0a0a0a"
+        color: "#f97316"
 
 exclude_docs: |
   GITHUB-PAGES-ROOT-URL.md
 
 extra:
   generator: false
+  homepage: /
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/kramlipi
+  alternate:
+    - name: Download binary
+      link: https://github.com/kramlipi/code-agent-binaries/releases
 
 markdown_extensions:
   - abbr
@@ -120,11 +130,38 @@ markdown_extensions:
       custom_checkbox: true
 
 nav:
-  - Home: index.md
-  - Get started: get-started.md
-  - Use cases: use-cases.md
-  - Features: features.md
-  - Help: troubleshooting.md
+  - Overview:
+    - Home: index.md
+    - Pains we fix: pains.md
+  - Platform:
+    - Get started: get-started.md
+    - Quick start: quick-start.md
+    - Features: features.md
+    - Use cases: use-cases.md
+    - Experts: experts.md
+    - Code review CI: code-review-ci.md
+    - Coverage: coverage.md
+    - Ultra intelligence: ultra-intelligence.md
+  - Tutorials & Blog:
+    - All tutorials: articles/index.md
+    - "NEW: Smarter Testing M1": articles/smarter-testing-m1-test-intel.md
+    - AI that doesn't guess: articles/the-computer-that-doesnt-guess.md
+    - Fix failing Python tests: articles/tutorial-python-failing-tests.md
+    - Fix failing Go tests: articles/tutorial-go-failing-tests.md
+    - Fix failing Java tests: articles/tutorial-java-failing-tests.md
+    - Raise coverage: articles/tutorial-raise-coverage.md
+    - Bug-fix from CI log: articles/tutorial-bugfix-ci-log.md
+    - PR code review: articles/tutorial-pr-code-review.md
+    - Ultra intelligence missing Go: articles/tutorial-ultra-intelligence-missing-go.md
+  - Reference:
+    - Commands: commands.md
+    - Recipes: recipes.md
+    - Release notes: release-notes.md
+    - Troubleshooting: troubleshooting.md
+  - Examples:
+    - Python: examples/python.md
+    - Go: examples/go.md
+    - Java: examples/java.md
 
 extra_css:
   - stylesheets/extra.css

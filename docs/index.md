@@ -146,7 +146,7 @@ Image: `ghcr.io/kramlipi/code-agent:latest` · [GHCR packages](https://github.co
 | [Get started](get-started.md) | Binary, ENV, use cases, Docker UI, pricing (only start page) |
 | [Use cases](use-cases.md) | Playbooks + pains + Python/Go/Java examples |
 | [Features](features.md) | Experts, CLI, recipes, coverage (full reference) |
-| [Tutorials](articles/index.md) | Walkthroughs (Python / Go / Java / coverage / review) |
+| [Tutorials & Blog](articles/index.md) | Top nav tab — walkthroughs, Smarter Testing M1, Python/Go/Java |
 | [Help](troubleshooting.md) | Exit codes and failures |
 | [Security overview](https://github.com/kramlipi/ai-code-agent/blob/main/docs/SECURITY-COMPLIANCE.md) | Enterprise trust / data flow |
 | [Deployment modes](https://github.com/kramlipi/ai-code-agent/blob/main/docs/DEPLOYMENT-MODES.md) | Local binary · CI · local UI |

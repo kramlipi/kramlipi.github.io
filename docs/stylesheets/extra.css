@@ -1,11 +1,182 @@
-/* Kramlipi Docs — theme tweaks */
+/* Kramlipi Docs — CodeRabbit-inspired layout (dark-first, orange accent) */
 
 :root {
-  --md-primary-fg-color: #3949ab;
+  --kl-accent: #f97316;
+  --kl-accent-soft: rgba(249, 115, 22, 0.14);
+  --kl-bg-deep: #0a0a0a;
+  --kl-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #0a0a0a;
+  --md-default-fg-color: #e8eaed;
+  --md-default-fg-color--light: #9aa0a6;
+  --md-default-fg-color--lighter: #6b7280;
+  --md-primary-fg-color: #0a0a0a;
+  --md-accent-fg-color: var(--kl-accent);
+  --md-typeset-a-color: #fb923c;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #111827;
+  --md-accent-fg-color: var(--kl-accent);
+}
+
+/* Header + top tabs (product switcher like CodeRabbit) */
+.md-header {
+  background: var(--kl-bg-deep);
+  border-bottom: 1px solid var(--kl-border);
+}
+
+.md-tabs {
+  background: var(--kl-bg-deep);
+  border-bottom: 1px solid var(--kl-border);
+}
+
+.md-tabs__link {
+  font-weight: 600;
+  font-size: 0.78rem;
+  opacity: 0.72;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+  color: var(--kl-accent);
+}
+
+.md-tabs__link--active {
+  border-bottom: 2px solid var(--kl-accent);
+}
+
+/* Download CTA in header */
+.kl-header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.35rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: var(--kl-accent);
+  color: #0a0a0a !important;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kl-header-cta:hover {
+  filter: brightness(1.08);
+  color: #0a0a0a !important;
+}
+
+/* Left sidebar — active item pill (CodeRabbit style) */
+.md-nav__link--active {
+  color: var(--kl-accent) !important;
+  background: var(--kl-accent-soft);
+  border-radius: 0.45rem;
+  font-weight: 600;
+}
+
+.md-nav__title {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  opacity: 0.55;
+}
+
+/* Right rail — "On this page" */
+.md-nav--secondary > .kl-toc-title,
+.md-nav--secondary > .md-nav__title {
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.82rem;
+  opacity: 0.92;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  color: var(--kl-accent) !important;
+  background: transparent;
+  font-weight: 600;
+}
+
+/* Article / tutorial pages — slightly wider readable column */
+.kl-article-page .md-content__inner {
+  max-width: 52rem;
+}
+
+.kl-article-page .md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.kl-article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1.5rem;
+}
+
+.kl-tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--kl-border);
+  background: var(--kl-accent-soft);
+  color: var(--kl-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Blog index cards */
+.kl-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.85rem;
+  margin: 1.25rem 0 2rem;
+}
+
+.kl-blog-card {
+  display: block;
+  padding: 1rem 1.05rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--kl-border);
+  background: linear-gradient(160deg, rgba(249, 115, 22, 0.08), rgba(255, 255, 255, 0.02));
+  text-decoration: none !important;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kl-blog-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+.kl-blog-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  color: inherit;
+}
+
+.kl-blog-card p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
+.kl-blog-card .kl-tag {
+  margin-bottom: 0.55rem;
 }
 
 .md-header__title {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .md-typeset h1 {
@@ -20,7 +191,6 @@
   border-radius: 0.4rem;
 }
 
-/* SEO: ensure code blocks are readable in search snippets */
 .highlight span.filename {
   font-weight: 600;
 }
@@ -37,7 +207,7 @@
   display: block;
   border-radius: 0.5rem;
   overflow: hidden;
-  border: 1px solid rgba(13, 148, 136, 0.35);
+  border: 1px solid rgba(249, 115, 22, 0.28);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -57,7 +227,7 @@
   margin: 1rem 0 1.5rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  border: 1px solid rgba(13, 148, 136, 0.35);
+  border: 1px solid rgba(249, 115, 22, 0.28);
 }
 
 .kl-collage-hero img {
@@ -71,6 +241,10 @@
   .kl-collage {
     grid-template-columns: 1fr;
   }
+
+  .kl-header-cta {
+    display: none;
+  }
 }
 
 /* Use cases — symptom cards */
@@ -82,8 +256,8 @@
 }
 
 .kl-symptom-card {
-  background: linear-gradient(145deg, rgba(57, 73, 171, 0.12), rgba(13, 148, 136, 0.08));
-  border: 1px solid rgba(57, 73, 171, 0.28);
+  background: linear-gradient(145deg, rgba(249, 115, 22, 0.1), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(249, 115, 22, 0.22);
   border-radius: 0.55rem;
   padding: 1rem 1.1rem 0.9rem;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -92,14 +266,14 @@
 .kl-symptom-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
-  border-color: rgba(13, 148, 136, 0.55);
+  border-color: rgba(249, 115, 22, 0.45);
 }
 
 .kl-symptom-label {
   display: block;
   font-weight: 600;
   font-size: 0.95rem;
-  color: var(--md-primary-fg-color, #3949ab);
+  color: var(--kl-accent);
   margin-bottom: 0.35rem;
 }
 
@@ -116,7 +290,6 @@
   text-decoration: none;
 }
 
-/* Use-case tabs — slightly roomier */
 .md-typeset .tabbed-set {
   margin-top: 1.5rem;
 }
