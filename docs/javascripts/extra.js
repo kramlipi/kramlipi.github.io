@@ -1,6 +1,14 @@
 (function () {
   "use strict";
 
+  /* Legacy article links used *.md — redirect to canonical MkDocs URLs. */
+  if (/\.md$/i.test(location.pathname) && location.pathname.includes("/articles/")) {
+    location.replace(
+      location.pathname.replace(/\.md$/i, "/") + location.search + location.hash
+    );
+    return;
+  }
+
   function enhanceLayout() {
     const path = document.location.pathname.replace(/\/$/, "");
     const isArticle = path.includes("/articles/") && !path.endsWith("/articles");

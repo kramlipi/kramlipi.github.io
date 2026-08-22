@@ -42,6 +42,40 @@ def on_post_build(config, **kwargs):
     _write_sitemap(sitemap, urls)
     _write_html_sitemap(site_dir, site_url, urls)
     _remove_gz_sitemap(site_dir)
+    _write_article_md_redirects(site_dir, site_url)
+
+
+def _write_article_md_redirects(site_dir: Path, site_url: str) -> None:
+    """Redirect legacy *.md article URLs to canonical trailing-slash pages."""
+    articles_dir = site_dir / "articles"
+    if not articles_dir.is_dir():
+        return
+    for page_dir in sorted(articles_dir.iterdir()):
+        if not page_dir.is_dir() or not (page_dir / "index.html").is_file():
+            continue
+        slug = page_dir.name
+        if slug in {"index", "sitemap"}:
+            continue
+        target = f"{site_url}/articles/{slug}/"
+        stub = articles_dir / f"{slug}.md"
+        stub.write_text(
+            f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url={html.escape(target, quote=True)}">
+  <link rel="canonical" href="{html.escape(target, quote=True)}">
+  <script>location.replace({target!r});</script>
+  <title>Redirecting…</title>
+</head>
+<body>
+  <p>Moved to <a href="{html.escape(target, quote=True)}">{html.escape(target)}</a>.</p>
+</body>
+</html>
+""",
+            encoding="utf-8",
+            newline="\n",
+        )
 
 
 def _canonical_url(site_dir: Path, html_path: Path, site_url: str) -> str:
