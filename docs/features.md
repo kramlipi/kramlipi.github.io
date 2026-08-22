@@ -102,6 +102,8 @@ code-agent experts run test-intel --base-branch main
 
 **Does not invoke the coding agent** — produces a test plan only.
 
+**Full narrative tutorial:** [Smarter Testing M1 — run only impacted tests](articles/smarter-testing-m1-test-intel.md)
+
 | Output | Description |
 |--------|-------------|
 | `plan.verify_cmd` | e.g. `pytest -q tests/test_foo.py …` |
