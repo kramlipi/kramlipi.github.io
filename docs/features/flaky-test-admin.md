@@ -195,7 +195,7 @@ CodeRabbit **fix-ci** tries to patch a failing check in a sandbox. Kramlipi **re
 ## Related pages
 
 - [Get started](../get-started.md) — binary, keys, first run  
-- [Use cases — run only tests that matter](../use-cases.md#2-run-only-the-tests-that-matter)  
+- [Use cases — run only tests that matter](../use-cases.md#2-slow-ci--stop-running-the-full-suite)  
 - [Quick start](../quick-start.md) — Docker UI  
 - [Experts](../experts.md) — `test-intel`, `flake`  
 
