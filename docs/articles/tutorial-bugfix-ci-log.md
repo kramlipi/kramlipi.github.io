@@ -164,7 +164,7 @@ That is often **ENVIRONMENT**, not a logic bug in your app.
 | Missing pip package on runner | **ENVIRONMENT** | Allowlisted installs (`pip install -r`, `go mod download`) — **not** rewriting app code to hide missing deps |
 | Missing `go` / `node` on PATH | **ENVIRONMENT** | **Fail closed** in default mode — will **not** download Go for you |
 
-**Do not** expect the default loop to `apt install golang` or patch your app to skip tests when the toolchain is absent. Install deps on the runner first, or see [Ultra intelligence mode](../ultra-intelligence.md) for opt-in toolchain install on a **trusted** machine.
+**Do not** expect the default loop to `apt install golang` or patch your app to skip tests when the toolchain is absent. Install deps on the runner first, or see [Ultra intelligence mode](../features/ultra-intelligence.md) for opt-in toolchain install on a **trusted** machine.
 
 If verify fails because CI never ran `pip install -r requirements.txt`, fix the workflow — don't ask the agent to delete the import.
 

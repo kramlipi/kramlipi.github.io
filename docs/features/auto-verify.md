@@ -7,7 +7,7 @@ description: >-
 
 # Auto verify (optional `--verify-cmd`)
 
-**Public URL:** https://kramlipi.github.io/auto-verify/
+**Public URL:** https://kramlipi.github.io/features/auto-verify/
 
 Nobody should have to memorize `pytest -q` vs `mvn test -q` vs `go test ./...` before their first agent run.
 
@@ -164,10 +164,10 @@ The Agent panel auto-detects verify from manifests and majority language (same i
 
 ## Related
 
-- [Get started](get-started.md) — binary, API key, first run  
-- [Features → verify](features.md#how-to-use-verify-commands) — copy-paste by language  
-- [Commands](commands.md) — full CLI reference  
-- [Use cases](use-cases.md) — pain → command  
+- [Get started](../get-started.md) — binary, API key, first run  
+- [Features → verify]((index.md#how-to-use-verify-commands)) — copy-paste by language  
+- [Commands](../commands.md) — full CLI reference  
+- [Use cases](../use-cases.md) — pain → command  
 - Product source: `language_stacks.py`, `verify_resolver.py`
 
 **Try free:** https://kramlipi.github.io/get-started/ · **Contact:** cluevion@gmail.com

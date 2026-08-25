@@ -130,7 +130,7 @@ code-agent run "Make Go tests pass." \
   -w /path/to/go-repo
 ```
 
-Or install Go yourself, then re-run without cascade. Details: [Ultra intelligence mode](ultra-intelligence.md).
+Or install Go yourself, then re-run without cascade. Details: [Ultra intelligence mode](features/ultra-intelligence.md).
 
 ---
 

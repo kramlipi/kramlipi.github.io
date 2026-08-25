@@ -270,4 +270,4 @@ Each cycle: read failure → add tests → re-run verify → push (if `--publish
 - Same pattern extends to Go (`go test ./...`) and Java (JaCoCo via Maven/Gradle).
 - Exit code 0 on your gate is the only success signal.
 
-**Next:** [Quick Start](https://kramlipi.github.io/quick-start/) · [Coverage runbook](../coverage.md) · [Python](tutorial-python-failing-tests.md) · [Go](tutorial-go-failing-tests.md) · [Java](tutorial-java-failing-tests.md) · Questions: [cluevion@gmail.com](mailto:cluevion@gmail.com)
+**Next:** [Quick Start](https://kramlipi.github.io/quick-start/) · [Coverage runbook](../features/coverage.md) · [Python](tutorial-python-failing-tests.md) · [Go](tutorial-go-failing-tests.md) · [Java](tutorial-java-failing-tests.md) · Questions: [cluevion@gmail.com](mailto:cluevion@gmail.com)

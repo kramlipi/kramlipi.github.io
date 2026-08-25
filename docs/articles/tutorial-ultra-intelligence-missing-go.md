@@ -38,7 +38,7 @@ That is intentional. The **0.1 product promise** says: toolchain on the runner *
 
 When the blocker really is a missing compiler — on **your** machine or an **approved** VM — you opt into **ultra intelligence mode**.
 
-Deep reference: **[Ultra intelligence (cascade)](https://kramlipi.github.io/ultra-intelligence/)**
+Deep reference: **[Ultra intelligence (cascade)](https://kramlipi.github.io/features/ultra-intelligence/)**
 
 ---
 
@@ -171,7 +171,7 @@ That's the same contract as bug-fix and code-review: **fail closed**.
 
 ## Next steps
 
-- **Full cascade doc:** [Ultra intelligence mode](https://kramlipi.github.io/ultra-intelligence/)
+- **Full cascade doc:** [Ultra intelligence mode](https://kramlipi.github.io/features/ultra-intelligence/)
 - **Normal Go fixes (toolchain present):** [Go example](../examples/go.md) · [Recipes](../recipes.md)
 - **Install & keys:** [Quick Start](../quick-start.md)
 - **Questions:** cluevion@gmail.com

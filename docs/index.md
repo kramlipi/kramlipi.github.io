@@ -15,7 +15,7 @@ Shipping slows down in review long before it slows down in the editor. Most team
 
 Agents changed the shape of that work, not the need for it. Diffs arrive faster now; someone still has to sign off on correctness, intent, and risk. The job was never mostly keystrokes—it was always reading, deciding, and coordinating. AI just made that the visible bottleneck.
 
-**Kramlipi** handles both sides. For review: a first pass with full repo context, posted as line comments on the PR—not a chatbot paraphrase of the diff. For red CI and coverage gates: read the failure, edit the code, run your tests again, repeat until **green**. We **auto-detect** the verify command from your repo ([Auto verify](auto-verify.md)); no need to guess `pytest` vs `mvn` first. No green, no done.
+**Kramlipi** handles both sides. For review: a first pass with full repo context, posted as line comments on the PR—not a chatbot paraphrase of the diff. For red CI and coverage gates: read the failure, edit the code, run your tests again, repeat until **green**. We **auto-detect** the verify command from your repo ([Auto verify](features/auto-verify.md)); no need to guess `pytest` vs `mvn` first. No green, no done.
 
 **Code review is free.** Try it at **[kramlipi.github.io](https://kramlipi.github.io/)**, or skip to [review a PR](#review-a-pr-inline-line-comments) in the quick start below.
 
@@ -60,7 +60,7 @@ code-agent run "increase unit test coverage" \
   --verify-cmd "go test ./..."
 ```
 
-Python: `--verify-cmd "pytest -q --cov=PACKAGE --cov-fail-under=80"` → [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features.md#coverage)
+Python: `--verify-cmd "pytest -q --cov=PACKAGE --cov-fail-under=80"` → [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features/index.md#coverage)
 
 #### Fix a broken build / failing tests
 
@@ -91,7 +91,7 @@ code-agent experts run code-review --pr 42 -w /path/to/your-repo
 code-agent experts run code-review --pr 42 --dry-run -w /path/to/your-repo
 ```
 
-More: [Use cases](use-cases.md) · [Features](features.md)
+More: [Use cases](use-cases.md) · [Features](features/index.md)
 
 #### Other features
 
@@ -99,9 +99,9 @@ More: [Use cases](use-cases.md) · [Features](features.md)
 |------------|---------|--------|
 | Run fewer tests on a PR | `code-agent experts run test-intel --pr N -w .` | [Use cases](use-cases.md#2-slow-ci--stop-running-the-full-suite) |
 | Babysit PR until green | `code-agent experts watch --pr N --verify-cmd "…" -w .` | [Use cases](use-cases.md#51-same-pr-keeps-failing--babysit-until-green) |
-| Find missing metrics | `code-agent experts run monitoring-expert -w . --dry-run` | [Features](features.md#experts) |
+| Find missing metrics | `code-agent experts run monitoring-expert -w . --dry-run` | [Features](features/index.md#experts) |
 | Alert → reliability fix | `code-agent experts run sre-expert --log alert.json -w .` | [Use cases](use-cases.md#7-sre-and-incidents) |
-| Canary / deploy gate | `code-agent experts run deploy-guard --metrics-file m.json` | [Features](features.md#experts) |
+| Canary / deploy gate | `code-agent experts run deploy-guard --metrics-file m.json` | [Features](features/index.md#experts) |
 
 | Flag | Meaning |
 |------|---------|
@@ -145,7 +145,7 @@ Image: `ghcr.io/kramlipi/code-agent:latest` · [GHCR packages](https://github.co
 |------|-----|
 | [Get started](get-started.md) | Binary, ENV, use cases, Docker UI, pricing (only start page) |
 | [Use cases](use-cases.md) | Playbooks + pains + Python/Go/Java examples |
-| [Features](features.md) | Experts, CLI, recipes, coverage (full reference) |
+| [Features](features/index.md) | Experts, CLI, recipes, coverage (full reference) |
 | [Tutorials & Blog](articles/index.md) | Top nav tab — walkthroughs, Smarter Testing M1, Python/Go/Java |
 | [Help](troubleshooting.md) | Exit codes and failures |
 | [Security overview](https://github.com/kramlipi/ai-code-agent/blob/main/docs/SECURITY-COMPLIANCE.md) | Enterprise trust / data flow |

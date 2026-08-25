@@ -44,7 +44,7 @@ export GEMINI_API_KEY=your-key-here
 ```
 
 !!! warning "Default mode does not install Go"
-    If `go` is missing from PATH, default mode **will not** download or apt-install it for you. That is deliberate — the 0.1 product promise assumes your toolchain is already there. If you need the agent to install missing toolchains on a trusted machine, see [Ultra intelligence mode (cascade)](../ultra-intelligence.md).
+    If `go` is missing from PATH, default mode **will not** download or apt-install it for you. That is deliberate — the 0.1 product promise assumes your toolchain is already there. If you need the agent to install missing toolchains on a trusted machine, see [Ultra intelligence mode (cascade)](../features/ultra-intelligence.md).
 
 ---
 
@@ -216,7 +216,7 @@ code-agent experts run bug-fix \
 
 Default mode classifies “`go: command not found`” as an **environment** problem and stops. It will not `apt install golang` or download a tarball.
 
-On a trusted laptop or VM where you *want* toolchain installation, opt into cascade mode — documented in [Ultra intelligence mode (cascade)](../ultra-intelligence.md):
+On a trusted laptop or VM where you *want* toolchain installation, opt into cascade mode — documented in [Ultra intelligence mode (cascade)](../features/ultra-intelligence.md):
 
 ```bash
 code-agent run "Make Go unit tests pass. Minimal code changes." \
@@ -237,7 +237,7 @@ For most CI pipelines: install Go in the workflow YAML. Let the agent fix **code
 | `--verify-cmd "pytest -q"` on Go | Wrong runner, wasted loops | Use `go test ./...` |
 | `-w` not at `go.mod` root | “go.mod not found” | `-w` = directory with `go.mod` |
 | Verify cmd differs from CI | Local green, CI red | Copy CI's exact `go test` line |
-| Expecting Go install in default mode | ENV failure, no fix | Pre-install Go, or use [cascade mode](../ultra-intelligence.md) |
+| Expecting Go install in default mode | ENV failure, no fix | Pre-install Go, or use [cascade mode](../features/ultra-intelligence.md) |
 | Running `go test` outside module | Module errors | `cd` to module root first |
 
 ---

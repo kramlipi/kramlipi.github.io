@@ -9,20 +9,20 @@ keywords: code-agent features, experts, cli, recipes, coverage, verify-cmd
 # Features
 
 Everything **code-agent** can do — experts, CLI, recipes, and coverage.  
-Pain-first walkthroughs live on **[Use cases](use-cases.md)**.
+Pain-first walkthroughs live on **[Use cases](../use-cases.md)**.
 
 ---
 
 ## Experts {#experts}
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#experts](features.md#experts).
+    Full content below is preserved. Same section: [index.md#experts](index.md#experts).
 
 
 Experts wrap the agent loop with **intake → triage → fix → verify → publish**.
 
 !!! info "When should I use which expert?"
-    See the **[Early Adopter Use Cases](use-cases.md)** guide — each scenario explains **why**, the **command**, and the **benefit**.
+    See the **[Early Adopter Use Cases](../use-cases.md)** guide — each scenario explains **why**, the **command**, and the **benefit**.
 
 ```bash
 code-agent experts list
@@ -102,7 +102,7 @@ code-agent experts run test-intel --base-branch main
 
 **Does not invoke the coding agent** — produces a test plan only.
 
-**Full narrative tutorial:** [Smarter Testing M1 — run only impacted tests](articles/smarter-testing-m1-test-intel.md)
+**Full narrative tutorial:** [Smarter Testing M1 — run only impacted tests](smarter-testing-m1-test-intel.md)
 
 | Output | Description |
 |--------|-------------|
@@ -186,17 +186,17 @@ Finds missing Prometheus/OTel metrics and invalid alert rules.
 | `--no-artifacts` | Skip `.code-agent/runs/` |
 | `-w` | Workspace root |
 
-See [Commands](commands.md) for the full flag list.
+See [Commands](../commands.md) for the full flag list.
 
 ---
 
 ## CLI commands {#commands}
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#commands](features.md#commands).
+    Full content below is preserved. Same section: [index.md#commands](index.md#commands).
 
 
-Quick reference for every `code-agent` command. For copy-paste workflows see [Recipes](recipes.md).
+Quick reference for every `code-agent` command. For copy-paste workflows see [Recipes](../recipes.md).
 
 ## Global
 
@@ -514,21 +514,21 @@ LiteLLM model strings: `gemini/`, `openai/`, `anthropic/`, `ollama_chat/`, etc.
 
 ## Related
 
-- [Experts](experts.md) — per-expert inputs and outputs
-- [Troubleshooting](troubleshooting.md) — exit codes and common failures
+- [Experts](../experts.md) — per-expert inputs and outputs
+- [Troubleshooting](../troubleshooting.md) — exit codes and common failures
 
 ---
 
 ## Recipes {#recipes}
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#recipes](features.md#recipes).
+    Full content below is preserved. Same section: [index.md#recipes](index.md#recipes).
 
 
 Copy-paste commands for common tasks. Replace paths with your project.
 
 !!! tip "Want the why behind each recipe?"
-    **[Use Cases](use-cases.md)** explains the pain, command, and benefit for each scenario — start there if you are piloting the agent on your team.
+    **[Use Cases](../use-cases.md)** explains the pain, command, and benefit for each scenario — start there if you are piloting the agent on your team.
 
 ---
 
@@ -545,7 +545,7 @@ code-agent experts run <TAB>           # bug-fix, test-intel, …
 code-agent run "…" --verify-cmd <TAB>  # pytest -q, go test ./..., …
 ```
 
-More: [Commands → Help & tab completion](commands.md#help-tab-completion).
+More: [Commands → Help & tab completion](../commands.md#help-tab-completion).
 
 ---
 
@@ -712,13 +712,13 @@ Do not delete production code. Do not edit .github/workflows.
 ## Coverage {#coverage}
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#coverage](features.md#coverage).
+    Full content below is preserved. Same section: [index.md#coverage](index.md#coverage).
 
 
 Runbook for raising line coverage on Python projects (especially `code_agent`).
 
 !!! tip "Why raise coverage with the agent?"
-    See [Use Cases → Coverage gate blocking merge](use-cases.md#4-coverage-gate-blocking-merge) for the full why → command → benefit flow.
+    See [Use Cases → Coverage gate blocking merge](../use-cases.md#4-coverage-gate-blocking-merge) for the full why → command → benefit flow.
 
 ## Baseline commands
 

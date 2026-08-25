@@ -7,7 +7,7 @@ keywords: code-agent cli, tab completion, install-completion, help, run, chat, d
 ---
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#commands](features.md#commands).
+    Full content below is preserved. Same section: [features.md#commands](features/index.md#commands).
 
 # CLI Commands
 
@@ -144,13 +144,13 @@ Checks Python, ripgrep, config, and optionally pings the LLM provider.
 | `--verify-plan TASK` | Show auto-resolved **SuccessSpec** / verify command for a task (no agent run) |
 | `--workspace`, `-w` | Project root for discovery |
 
-**Verify gate:** auto-detected by default; pass `--verify-cmd` to override. See [Auto verify](auto-verify.md) and [How to use verify commands](#how-to-use-verify-commands) below.
+**Verify gate:** auto-detected by default; pass `--verify-cmd` to override. See [Auto verify](features/auto-verify.md) and [How to use verify commands](#how-to-use-verify-commands) below.
 
 ---
 
 ## How to use verify commands
 
-**Full guide:** [Auto verify](auto-verify.md).
+**Full guide:** [Auto verify](features/auto-verify.md).
 
 Tell **code-agent** what “done” means. Auto-detection is on by default; use `--verify-cmd` to override.
 

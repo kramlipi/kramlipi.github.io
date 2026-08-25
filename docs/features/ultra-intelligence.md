@@ -34,7 +34,7 @@ Cascade is documented in the product design docs; it was kept off the public Qui
 ### 0. Preconditions
 
 - Binary or `pip install` of `code-agent` on the host
-- LLM key set (`GEMINI_API_KEY` / Claude / OpenAI — see [Quick Start](quick-start.md))
+- LLM key set (`GEMINI_API_KEY` / Claude / OpenAI — see [Quick Start](../quick-start.md))
 - A Go repo under `-w` (even if `go` is **not** installed yet)
 - Linux with `apt-get`/`dnf`, or macOS with Homebrew
 - Ability to install packages (often needs passwordless `sudo` if `cascade.allow_sudo` is on)
@@ -110,4 +110,4 @@ export CODE_AGENT_AUTONOMY=cascade
 
 ## Related
 
-- [Quick Start](quick-start.md) · [Troubleshooting](troubleshooting.md) · [Commands](commands.md)
+- [Quick Start](../quick-start.md) · [Troubleshooting](../troubleshooting.md) · [Commands](../commands.md)

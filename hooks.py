@@ -43,6 +43,58 @@ def on_post_build(config, **kwargs):
     _write_html_sitemap(site_dir, site_url, urls)
     _remove_gz_sitemap(site_dir)
     _write_article_md_redirects(site_dir, site_url)
+    _write_legacy_feature_redirects(site_dir, site_url)
+
+
+
+
+LEGACY_FEATURE_REDIRECTS: dict[str, str] = {
+    "auto-verify": "features/auto-verify/",
+    "flaky-test-admin": "features/flaky-test-admin/",
+    "linter-sandbox": "features/linter-sandbox/",
+    "ultra-intelligence": "features/ultra-intelligence/",
+    "coverage": "features/coverage/",
+    "articles/smarter-testing-m1-test-intel": "features/smarter-testing-m1-test-intel/",
+}
+
+
+def _redirect_html(target: str) -> str:
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url={html.escape(target, quote=True)}">
+  <link rel="canonical" href="{html.escape(target, quote=True)}">
+  <script>location.replace({target!r});</script>
+  <title>Redirecting…</title>
+</head>
+<body>
+  <p>Moved to <a href="{html.escape(target, quote=True)}">{html.escape(target)}</a>.</p>
+</body>
+</html>
+"""
+
+
+def _write_legacy_feature_redirects(site_dir: Path, site_url: str) -> None:
+    """301-style HTML redirects for feature pages moved under /features/."""
+    for old_path, new_rel in LEGACY_FEATURE_REDIRECTS.items():
+        target = f"{site_url}/{new_rel}"
+        dest = site_dir.joinpath(*old_path.split("/"))
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "index.html").write_text(
+            _redirect_html(target), encoding="utf-8", newline="\n"
+        )
+        # Legacy *.md URL stubs (GitHub Pages / bookmarks)
+        if "/" in old_path:
+            stub_dir = site_dir / old_path.rsplit("/", 1)[0]
+            stub_name = f"{old_path.rsplit('/', 1)[1]}.md"
+        else:
+            stub_dir = site_dir
+            stub_name = f"{old_path}.md"
+        stub_dir.mkdir(parents=True, exist_ok=True)
+        (stub_dir / stub_name).write_text(
+            _redirect_html(target), encoding="utf-8", newline="\n"
+        )
 
 
 def _write_article_md_redirects(site_dir: Path, site_url: str) -> None:

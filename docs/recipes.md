@@ -7,7 +7,7 @@ keywords: code-agent recipes, fix pytest, fix go test, bug-fix log, experts watc
 ---
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#recipes](features.md#recipes).
+    Full content below is preserved. Same section: [features.md#recipes](features/index.md#recipes).
 
 # Recipe Book
 
@@ -99,7 +99,7 @@ code-agent experts run bug-fix \
   --verify-cmd "pytest -q --cov=code_agent --cov-report=term-missing --cov-fail-under=80"
 ```
 
-See [Coverage](coverage.md) for the full runbook.
+See [Coverage](features/coverage.md) for the full runbook.
 
 ---
 

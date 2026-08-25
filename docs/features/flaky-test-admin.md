@@ -174,7 +174,7 @@ code-agent memory status --pr 42
     - Python/pytest path is strongest today  
     - Score is evidence, not oracle — use admin skip when the team already knows  
 
-To **fix** root cause (not just skip), use the `flake` expert or scheduled `flaky-fix` — see [Experts](experts.md).
+To **fix** root cause (not just skip), use the `flake` expert or scheduled `flaky-fix` — see [Experts](../experts.md).
 
 ---
 
@@ -194,9 +194,9 @@ CodeRabbit **fix-ci** tries to patch a failing check in a sandbox. Kramlipi **re
 
 ## Related pages
 
-- [Get started](get-started.md) — binary, keys, first run  
-- [Use cases — run only tests that matter](use-cases.md#2-run-only-the-tests-that-matter)  
-- [Quick start](quick-start.md) — Docker UI  
-- [Experts](experts.md) — `test-intel`, `flake`  
+- [Get started](../get-started.md) — binary, keys, first run  
+- [Use cases — run only tests that matter](../use-cases.md#2-run-only-the-tests-that-matter)  
+- [Quick start](../quick-start.md) — Docker UI  
+- [Experts](../experts.md) — `test-intel`, `flake`  
 
 **Product source:** [runningcodeio/ai-code-agent](https://github.com/runningcodeio/ai-code-agent) · docs synced from `docs/FLAKY-TEST-ADMIN.md`

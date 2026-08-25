@@ -221,7 +221,7 @@ code-agent web serve
 
 **Benefit:** Outcomes live in SQLite (default) or **Postgres** for the org. Known flakes skip on MR with reasons in `mr_test_report.json`. Admins override skip / force-run from the console — no CodeRabbit-style “comment only.”
 
-→ Full guide: [Flaky test admin](flaky-test-admin.md)
+→ Full guide: [Flaky test admin](features/flaky-test-admin.md)
 
 ---
 
@@ -312,7 +312,7 @@ code-agent experts run bug-fix \
 
 **Benefit:** Agent is instructed to **add tests**, not delete production code. Coverage rises; gate passes objectively.
 
-[Coverage runbook →](coverage.md)
+[Coverage runbook →](features/coverage.md)
 
 ---
 
@@ -629,7 +629,7 @@ code-agent chat -w /path/to/your-repo
 | Fix CI / broken build from a log | `experts run bug-fix --log …` |
 | PR inline review comments | `experts run code-review --pr N` |
 | Run fewer tests on PR | `experts run test-intel` |
-| Raise coverage from cov log | `bug-fix` on coverage log or [Coverage](coverage.md) |
+| Raise coverage from cov log | `bug-fix` on coverage log or [Coverage](features/coverage.md) |
 | PR keeps failing overnight | `experts watch --pr N` |
 | Find missing metrics | `experts run monitoring-expert` |
 | MR for telemetry | `monitoring-expert --publish` |
@@ -661,7 +661,7 @@ code-agent chat -w /path/to/your-repo
 - [Quick Start](quick-start.md) — install and first command
 - [Experts](experts.md) — inputs/outputs per expert
 - [Recipes](recipes.md) — copy-paste commands without narrative
-- [Coverage](coverage.md) — pytest-cov runbook
+- [Coverage](features/coverage.md) — pytest-cov runbook
 - [Troubleshooting](troubleshooting.md) — exit codes and failures
 
 ---

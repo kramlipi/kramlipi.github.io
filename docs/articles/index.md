@@ -12,13 +12,10 @@ Short stories. Real commands. Your verify command keeps the score.
 
 Use the **Tutorials & Blog** tab in the top navigation to browse posts. When you open an article, the left sidebar lists every tutorial and the right rail shows **On this page** — same layout pattern as modern docs sites (CodeRabbit, Stripe, etc.).
 
+**Feature deep-dive:** [Smarter Testing M1 — test-intel](../features/smarter-testing-m1-test-intel.md) (canonical page under Features).
+
 <div class="kl-blog-grid">
 
-<a class="kl-blog-card" href="smarter-testing-m1-test-intel/">
-<span class="kl-tag">New · test-intel</span>
-<h3>Smarter Testing M1 — run only impacted tests</h3>
-<p>Doc-only PRs skip the suite. Coverage contexts pick tests. Same-SHA flake memory. JUnit timings for shards.</p>
-</a>
 
 <a class="kl-blog-card" href="tutorial-python-failing-tests/">
 <span class="kl-tag">Python</span>
@@ -74,7 +71,7 @@ Use the **Tutorials & Blog** tab in the top navigation to browse posts. When you
 
 | Tutorial | Pain | Type |
 |----------|------|------|
-| [Smarter Testing M1](smarter-testing-m1-test-intel.md) | Full suite on every PR | test-intel |
+| [Smarter Testing M1](../features/smarter-testing-m1-test-intel.md) | Full suite on every PR | test-intel *(Features)* |
 | [Python: fix a failing pytest](tutorial-python-failing-tests.md) | Red unit test at midnight | Python |
 | [Go: fix a failing `go test`](tutorial-go-failing-tests.md) | `--- FAIL:` in CI | Go |
 | [Java: fix Maven / Gradle tests](tutorial-java-failing-tests.md) | BUILD FAILURE | Java |

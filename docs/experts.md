@@ -7,7 +7,7 @@ keywords: bug-fix expert, code-review, test-intel, deploy-guard, sre-expert, mon
 ---
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#experts](features.md#experts).
+    Full content below is preserved. Same section: [features.md#experts](features/index.md#experts).
 
 # Experts
 

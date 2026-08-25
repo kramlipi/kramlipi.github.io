@@ -8,7 +8,7 @@ description: >-
 
 # Linters on changed lines (and optional Docker sandbox)
 
-**Public URL:** https://kramlipi.github.io/linter-sandbox/
+**Public URL:** https://kramlipi.github.io/features/linter-sandbox/
 
 Every PR review starts with more than a truncated diff. **kramlipi code-review** runs real linters on the lines you actually changed, turns their output into review findings, and only then asks the LLM for semantic issues. That means fewer “the linter already caught this” comments and more time on logic, security, and API breaks.
 
@@ -154,9 +154,9 @@ We are **not** claiming forty-linter parity with cloud review SaaS. We **are** g
 
 ## Related
 
-- [Code review in CI](code-review-ci.md) — GitHub, GitLab, Azure copy-paste  
-- [Get started](get-started.md) — binary, API key, first run  
-- [Experts](experts.md) — `code-review` flags  
+- [Code review in CI](../code-review-ci.md) — GitHub, GitLab, Azure copy-paste  
+- [Get started](../get-started.md) — binary, API key, first run  
+- [Experts](../experts.md) — `code-review` flags  
 - Product source: `docker/linter-sandbox/Dockerfile`, `linter_bridge.py`, `linter_sandbox.py`
 
 **Try free:** https://kramlipi.github.io/get-started/ · **Contact:** cluevion@gmail.com

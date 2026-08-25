@@ -119,7 +119,7 @@ code-agent run "increase unit test coverage" \
   -w /path/to/your-repo
 ```
 
-Verify is **auto-detected** from the repo ([Auto verify](auto-verify.md)). Override with `--verify-cmd` when you need CI-exact control.
+Verify is **auto-detected** from the repo ([Auto verify](features/auto-verify.md)). Override with `--verify-cmd` when you need CI-exact control.
 
 | Language | Auto-detect example | Optional override |
 |----------|---------------------|-------------------|
@@ -128,7 +128,7 @@ Verify is **auto-detected** from the repo ([Auto verify](auto-verify.md)). Overr
 | Java | `mvn -q test` | `--verify-cmd "mvn test -q"` |
 | .NET | `dotnet test` | `--verify-cmd "dotnet test"` |
 
-→ [Coverage](coverage.md) · [Use cases](use-cases.md#4-coverage-gate-blocking-merge)
+→ [Coverage](features/coverage.md) · [Use cases](use-cases.md#4-coverage-gate-blocking-merge)
 
 #### Fix a broken build / failing tests
 
@@ -191,7 +191,7 @@ Economy mode is **off by default**. Opt in: `CODE_AGENT_ECONOMY_MODE=true`.
 | Flag | Meaning |
 |------|---------|
 | `-w` / `--workspace` | Folder path of the git repo to edit |
-| `--verify-cmd` | Optional — auto-detected by default ([Auto verify](auto-verify.md)) |
+| `--verify-cmd` | Optional — auto-detected by default ([Auto verify](features/auto-verify.md)) |
 
 #### Ultra intelligence (missing Go / toolchain)
 
@@ -205,7 +205,7 @@ code-agent run "Make Go unit tests pass. Minimal changes." \
   -w /path/to/go-project
 ```
 
-Full demo + why this is opt-in: **[Ultra intelligence mode](ultra-intelligence.md)**
+Full demo + why this is opt-in: **[Ultra intelligence mode](features/ultra-intelligence.md)**
 
 ### 4. Docker (optional — second choice)
 
@@ -785,7 +785,7 @@ code-agent experts run bug-fix \
 
 The agent is told to **add tests**, not delete production code.
 
-Full runbook: [Coverage](coverage.md)
+Full runbook: [Coverage](features/coverage.md)
 
 ---
 
@@ -854,6 +854,6 @@ code-agent experts watch --pr 42 --verify-cmd "pytest -q" -w /path/to/repo
 - [Python failing tests](examples/python.md)
 - [Go failing tests](examples/go.md)
 - [Java failing tests](examples/java.md)
-- [All CLI flags](features.md#commands)
-- [Experts reference](features.md#experts)
+- [All CLI flags](features/index.md#commands)
+- [Experts reference](features/index.md#experts)
 - [Get started](get-started.md) (canonical entry)

@@ -136,19 +136,19 @@ nav:
   - Platform:
     - Get started: get-started.md
     - Quick start: quick-start.md
-    - Features: features.md
     - Use cases: use-cases.md
-    - Experts: experts.md
     - Code review CI: code-review-ci.md
-    - Auto verify: auto-verify.md
-    - Linter sandbox: linter-sandbox.md
-    - Flaky test admin: flaky-test-admin.md
-    - Coverage: coverage.md
-    - Ultra intelligence: ultra-intelligence.md
+  - Features:
+    - Overview: features/index.md
+    - Auto verify: features/auto-verify.md
+    - Linter sandbox: features/linter-sandbox.md
+    - Flaky test admin: features/flaky-test-admin.md
+    - Coverage: features/coverage.md
+    - Ultra intelligence: features/ultra-intelligence.md
+    - "Smarter Testing M1": features/smarter-testing-m1-test-intel.md
   - Tutorials & Blog:
     - All tutorials: articles/index.md
-    - "NEW: Smarter Testing M1": articles/smarter-testing-m1-test-intel.md
-    - AI that doesn't guess: articles/the-computer-that-doesnt-guess.md
+    - "AI that doesn't guess": articles/the-computer-that-doesnt-guess.md
     - Fix failing Python tests: articles/tutorial-python-failing-tests.md
     - Fix failing Go tests: articles/tutorial-go-failing-tests.md
     - Fix failing Java tests: articles/tutorial-java-failing-tests.md
@@ -157,6 +157,7 @@ nav:
     - PR code review: articles/tutorial-pr-code-review.md
     - Ultra intelligence missing Go: articles/tutorial-ultra-intelligence-missing-go.md
   - Reference:
+    - Experts: experts.md
     - Commands: commands.md
     - Recipes: recipes.md
     - Release notes: release-notes.md

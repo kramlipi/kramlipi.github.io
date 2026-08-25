@@ -125,9 +125,9 @@ code-agent run "increase unit test coverage" \
   -w /path/to/your-repo
 ```
 
-Auto-detect picks the verify command from your repo ([Auto verify](auto-verify.md)). Override only if needed: `--verify-cmd "go test ./..."`.
+Auto-detect picks the verify command from your repo ([Auto verify](features/auto-verify.md)). Override only if needed: `--verify-cmd "go test ./..."`.
 
-→ [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features.md#coverage)
+→ [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features/index.md#coverage)
 
 ### Fix a broken build
 
@@ -141,7 +141,7 @@ code-agent experts run bug-fix \
   -w /path/to/your-repo
 ```
 
-Verify is auto-detected from the project ([Auto verify](auto-verify.md)). Add `--verify-cmd "…"` only to pin the same command as CI.
+Verify is auto-detected from the project ([Auto verify](features/auto-verify.md)). Add `--verify-cmd "…"` only to pin the same command as CI.
 
 → [Use cases → Fix CI](use-cases.md#1-ci-failed--you-need-a-fix-tonight) · [Python](use-cases.md#python-example) · [Go](use-cases.md#go-example) · [Java](use-cases.md#java-example)
 
@@ -163,16 +163,16 @@ git diff main...HEAD > /tmp/mr.diff
 code-agent experts run code-review --diff-file /tmp/mr.diff -w .
 ```
 
-→ [Use cases](use-cases.md#9-automated-pr-line-comments-code-review) · [Features → code-review](features.md#experts)
+→ [Use cases](use-cases.md#9-automated-pr-line-comments-code-review) · [Features → code-review](features/index.md#experts)
 
 ### Other features
 
 | I want to… | Command | Detail |
 |------------|---------|--------|
 | Impacted tests only | `experts run test-intel --pr N` | [Use cases → test-intel](use-cases.md#2-slow-ci--stop-running-the-full-suite) |
-| Flaky tests — memory, skip, admin | `web serve` → flake panel **⚙** | [Flaky test admin](flaky-test-admin.md) |
+| Flaky tests — memory, skip, admin | `web serve` → flake panel **⚙** | [Flaky test admin](features/flaky-test-admin.md) |
 | Babysit PR | `experts watch --pr N --verify-cmd "…"` | [Use cases → watch](use-cases.md#51-same-pr-keeps-failing--babysit-until-green) |
-| Missing metrics | `experts run monitoring-expert --dry-run` | [Features → experts](features.md#experts) |
+| Missing metrics | `experts run monitoring-expert --dry-run` | [Features → experts](features/index.md#experts) |
 | Alert → fix | `experts run sre-expert --log alert.json` | [Use cases → SRE](use-cases.md#7-sre-and-incidents) |
 
 | Flag | Meaning |
@@ -254,9 +254,9 @@ Runs on **your** machine or **your** CI with **your** LLM key. We don’t host y
 
 | | |
 |-|-|
-| Auto verify (no `--verify-cmd` guesswork) | [Auto verify](auto-verify.md) |
-| Flaky tests (storage + skip) | [Flaky test admin](flaky-test-admin.md) |
-| PR review + linters | [Code review CI](code-review-ci.md) · [Linter sandbox](linter-sandbox.md) |
+| Auto verify (no `--verify-cmd` guesswork) | [Auto verify](features/auto-verify.md) |
+| Flaky tests (storage + skip) | [Flaky test admin](features/flaky-test-admin.md) |
+| PR review + linters | [Code review CI](code-review-ci.md) · [Linter sandbox](features/linter-sandbox.md) |
 | Pain → command | [Use cases](use-cases.md) · [Pains catalog](use-cases.md#pains-catalog) |
-| All flags & experts | [Features](features.md) |
+| All flags & experts | [Features](features/index.md) |
 | Home | [index](index.md) |

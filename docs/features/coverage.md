@@ -7,14 +7,14 @@ keywords: pytest-cov, code coverage, fail-under, unit tests, bug-fix coverage
 ---
 
 !!! info "Also on merged page"
-    Full content below is preserved. Same section: [features.md#coverage](features.md#coverage).
+    Full content below is preserved. Same section: [index.md#coverage](index.md#coverage).
 
 # Unit Tests & Coverage
 
 Runbook for raising line coverage on Python projects (especially `code_agent`).
 
 !!! tip "Why raise coverage with the agent?"
-    See [Use Cases → Coverage gate blocking merge](use-cases.md#4-coverage-gate-blocking-merge) for the full why → command → benefit flow.
+    See [Use Cases → Coverage gate blocking merge](../use-cases.md#4-coverage-gate-blocking-merge) for the full why → command → benefit flow.
 
 ## Baseline commands
 

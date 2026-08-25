@@ -164,6 +164,6 @@ Enable the `fix-check-run-template` workflow in your repo and set `CODE_AGENT_WE
 3. `code-agent experts run test-intel --base-branch main -w .`
 4. Read the plan: `.code-agent/runs/*/test_plan.json`
 
-**More tutorials:** [Tutorials & Blog](index.md) · [test-intel in Features](../features.md) · [Use cases](../use-cases.md)
+**More tutorials:** [Tutorials [Tutorials & Blog](../index.md) Blog](../articles/index.md) · [test-intel in Features](index.md) · [Use cases](../use-cases.md)
 
 **Contact:** cluevion@gmail.com

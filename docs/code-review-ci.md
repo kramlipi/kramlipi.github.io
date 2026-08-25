@@ -217,7 +217,7 @@ Findings land under `.code-agent/runs/*/review-findings.json` (pipeline artifact
 
 Review can run **real linters on changed lines** (ruff, eslint, golangci-lint, semgrep, and more) before the AI pass — optional **Docker sandbox** for consistent tooling across laptops and CI.
 
-→ **[Linter sandbox guide](linter-sandbox.md)** · https://kramlipi.github.io/linter-sandbox/
+→ **[Linter sandbox guide](features/linter-sandbox.md)** · https://kramlipi.github.io/features/linter-sandbox/
 
 Quick enable in CI:
 
@@ -251,7 +251,7 @@ code-agent experts run code-review --diff-file /tmp/mr.diff -w .
 
 ## Related
 
-- [Linter sandbox guide](linter-sandbox.md) — static analysis on changed lines
+- [Linter sandbox guide](features/linter-sandbox.md) — static analysis on changed lines
 - Product templates: `.github/workflows/code-review-template.yml`
 - Expert flags: [Experts](experts.md)
 - Quick start: [Quick Start](quick-start.md)
