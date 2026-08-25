@@ -201,6 +201,30 @@ cat .code-agent/runs/*/test_plan.json
 
 ---
 
+### 2.3 Flaky tests — remember them, skip on MR, admin console
+
+**Why:** The same test fails on Tuesday and passes on Wednesday. Re-running the whole suite is expensive; `@pytest.mark.skip` in source without a paper trail is worse.
+
+**Command:**
+
+```bash
+# Teach memory from a PR run
+code-agent experts run test-intel --pr 42 --run-tests -w . --verify-cmd "pytest -q"
+
+# See what Kramlipi remembers
+code-agent memory flakes
+
+# Browser: storage backend + manual skip
+code-agent web serve
+# → Flaky build intelligence → ⚙
+```
+
+**Benefit:** Outcomes live in SQLite (default) or **Postgres** for the org. Known flakes skip on MR with reasons in `mr_test_report.json`. Admins override skip / force-run from the console — no CodeRabbit-style “comment only.”
+
+→ Full guide: [Flaky test admin](flaky-test-admin.md)
+
+---
+
 ## 3. Failing unit tests — by language
 
 ### 3.1 Python — pytest red on your feature branch

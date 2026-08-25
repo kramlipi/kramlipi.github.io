@@ -168,6 +168,7 @@ code-agent experts run code-review --diff-file /tmp/mr.diff -w .
 | I want to… | Command | Detail |
 |------------|---------|--------|
 | Impacted tests only | `experts run test-intel --pr N` | [Use cases → test-intel](use-cases.md#2-slow-ci--stop-running-the-full-suite) |
+| Flaky tests — memory, skip, admin | `web serve` → flake panel **⚙** | [Flaky test admin](flaky-test-admin.md) |
 | Babysit PR | `experts watch --pr N --verify-cmd "…"` | [Use cases → watch](use-cases.md#51-same-pr-keeps-failing--babysit-until-green) |
 | Missing metrics | `experts run monitoring-expert --dry-run` | [Features → experts](features.md#experts) |
 | Alert → fix | `experts run sre-expert --log alert.json` | [Use cases → SRE](use-cases.md#7-sre-and-incidents) |
@@ -251,6 +252,8 @@ Runs on **your** machine or **your** CI with **your** LLM key. We don’t host y
 
 | | |
 |-|-|
+| Flaky tests (storage + skip) | [Flaky test admin](flaky-test-admin.md) |
+| PR review + linters | [Code review CI](code-review-ci.md) · [Linter sandbox](linter-sandbox.md) |
 | Pain → command | [Use cases](use-cases.md) · [Pains catalog](use-cases.md#pains-catalog) |
 | All flags & experts | [Features](features.md) |
 | Home | [index](index.md) |
