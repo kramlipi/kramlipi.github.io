@@ -122,9 +122,10 @@ export CODE_AGENT_API_KEY=YOUR_PROXY_KEY
 
 ```bash
 code-agent run "increase unit test coverage" \
-  -w /path/to/your-repo \
-  --verify-cmd "go test ./..."
+  -w /path/to/your-repo
 ```
+
+Auto-detect picks the verify command from your repo ([Auto verify](auto-verify.md)). Override only if needed: `--verify-cmd "go test ./..."`.
 
 → [Use cases → Coverage](use-cases.md#4-coverage-gate-blocking-merge) · [Features → Coverage](features.md#coverage)
 
@@ -137,9 +138,10 @@ go test ./... 2>&1 | tee /tmp/ci.log
 
 code-agent experts run bug-fix \
   --log /tmp/ci.log \
-  --verify-cmd "go test ./..." \
   -w /path/to/your-repo
 ```
+
+Verify is auto-detected from the project ([Auto verify](auto-verify.md)). Add `--verify-cmd "…"` only to pin the same command as CI.
 
 → [Use cases → Fix CI](use-cases.md#1-ci-failed--you-need-a-fix-tonight) · [Python](use-cases.md#python-example) · [Go](use-cases.md#go-example) · [Java](use-cases.md#java-example)
 
@@ -252,6 +254,7 @@ Runs on **your** machine or **your** CI with **your** LLM key. We don’t host y
 
 | | |
 |-|-|
+| Auto verify (no `--verify-cmd` guesswork) | [Auto verify](auto-verify.md) |
 | Flaky tests (storage + skip) | [Flaky test admin](flaky-test-admin.md) |
 | PR review + linters | [Code review CI](code-review-ci.md) · [Linter sandbox](linter-sandbox.md) |
 | Pain → command | [Use cases](use-cases.md) · [Pains catalog](use-cases.md#pains-catalog) |

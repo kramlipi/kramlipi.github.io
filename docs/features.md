@@ -335,7 +335,9 @@ Checks Python, ripgrep, config, and optionally pings the LLM provider.
 
 ## How to use verify commands
 
-Tell **code-agent** what “done” means with `--verify-cmd`. It edits your repo with tools, then re-runs that command until it exits **0** (or it fails closed).
+**Full guide:** [Auto verify](auto-verify.md) — optional `--verify-cmd`, 17 industry stacks, what we run and why.
+
+Tell **code-agent** what “done” means. By default we **auto-detect** from your repo; override with `--verify-cmd` when you want CI-exact control. The agent edits your repo with tools, then re-runs verify until exit **0** (or fails closed).
 
 ### See which verify command would be used
 
@@ -383,9 +385,11 @@ code-agent run "Make unit tests pass. Minimal changes only." \
 go test ./...
 ```
 
-### Omit `--verify-cmd` (auto-discovery)
+### Omit `--verify-cmd` (auto-discovery — default)
 
-If you omit `--verify-cmd`, it tries config → CI → project manifests (`pytest`, `go test`, npm, …). Prefer an **explicit** `--verify-cmd` when you know the right command.
+`auto_verify` is **on** by default. Open the repo folder and run — we pick pytest, `mvn -q test`, `go test ./...`, `dotnet test`, etc. See the **[Auto verify guide](auto-verify.md)** for the full stack table and priority rules.
+
+Prefer an **explicit** `--verify-cmd` when CI uses a non-default command or you run in a polyglot monorepo.
 
 ### Docker one-liner
 

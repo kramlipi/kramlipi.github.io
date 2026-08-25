@@ -116,15 +116,17 @@ export CODE_AGENT_API_KEY=YOUR_PROXY_KEY
 
 ```bash
 code-agent run "increase unit test coverage" \
-  -w /path/to/your-repo \
-  --verify-cmd "go test ./..."
+  -w /path/to/your-repo
 ```
 
-| Language | Example `--verify-cmd` |
-|----------|------------------------|
-| Go | `go test ./...` |
-| Python | `pytest -q --cov=PACKAGE --cov-fail-under=80` |
-| Java | `mvn test` |
+Verify is **auto-detected** from the repo ([Auto verify](auto-verify.md)). Override with `--verify-cmd` when you need CI-exact control.
+
+| Language | Auto-detect example | Optional override |
+|----------|---------------------|-------------------|
+| Go | `go test ./...` | `--verify-cmd "go test ./..."` |
+| Python | `pytest -q` | `--verify-cmd "pytest -q --cov=PACKAGE --cov-fail-under=80"` |
+| Java | `mvn -q test` | `--verify-cmd "mvn test -q"` |
+| .NET | `dotnet test` | `--verify-cmd "dotnet test"` |
 
 → [Coverage](coverage.md) · [Use cases](use-cases.md#4-coverage-gate-blocking-merge)
 
@@ -189,7 +191,7 @@ Economy mode is **off by default**. Opt in: `CODE_AGENT_ECONOMY_MODE=true`.
 | Flag | Meaning |
 |------|---------|
 | `-w` / `--workspace` | Folder path of the git repo to edit |
-| `--verify-cmd` | Shell command that must exit `0` |
+| `--verify-cmd` | Optional — auto-detected by default ([Auto verify](auto-verify.md)) |
 
 #### Ultra intelligence (missing Go / toolchain)
 

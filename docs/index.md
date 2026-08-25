@@ -15,7 +15,7 @@ Shipping slows down in review long before it slows down in the editor. Most team
 
 Agents changed the shape of that work, not the need for it. Diffs arrive faster now; someone still has to sign off on correctness, intent, and risk. The job was never mostly keystrokes—it was always reading, deciding, and coordinating. AI just made that the visible bottleneck.
 
-**Kramlipi** handles both sides. For review: a first pass with full repo context, posted as line comments on the PR—not a chatbot paraphrase of the diff. For red CI and coverage gates: read the failure, edit the code, run your pipeline again, repeat until **green**. No green, no done.
+**Kramlipi** handles both sides. For review: a first pass with full repo context, posted as line comments on the PR—not a chatbot paraphrase of the diff. For red CI and coverage gates: read the failure, edit the code, run your tests again, repeat until **green**. We **auto-detect** the verify command from your repo ([Auto verify](auto-verify.md)); no need to guess `pytest` vs `mvn` first. No green, no done.
 
 **Code review is free.** Try it at **[kramlipi.github.io](https://kramlipi.github.io/)**, or skip to [review a PR](#review-a-pr-inline-line-comments) in the quick start below.
 

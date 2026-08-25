@@ -144,13 +144,15 @@ Checks Python, ripgrep, config, and optionally pings the LLM provider.
 | `--verify-plan TASK` | Show auto-resolved **SuccessSpec** / verify command for a task (no agent run) |
 | `--workspace`, `-w` | Project root for discovery |
 
-**Verify gate:** pass `--verify-cmd` so the agent only finishes when that command exits `0`. See [How to use verify commands](#how-to-use-verify-commands) below.
+**Verify gate:** auto-detected by default; pass `--verify-cmd` to override. See [Auto verify](auto-verify.md) and [How to use verify commands](#how-to-use-verify-commands) below.
 
 ---
 
 ## How to use verify commands
 
-Tell **code-agent** what “done” means with `--verify-cmd`. It edits your repo with tools, then re-runs that command until it exits **0** (or it fails closed).
+**Full guide:** [Auto verify](auto-verify.md).
+
+Tell **code-agent** what “done” means. Auto-detection is on by default; use `--verify-cmd` to override.
 
 ### See which verify command would be used
 

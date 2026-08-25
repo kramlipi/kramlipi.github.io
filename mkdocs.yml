@@ -140,6 +140,7 @@ nav:
     - Use cases: use-cases.md
     - Experts: experts.md
     - Code review CI: code-review-ci.md
+    - Auto verify: auto-verify.md
     - Linter sandbox: linter-sandbox.md
     - Flaky test admin: flaky-test-admin.md
     - Coverage: coverage.md
