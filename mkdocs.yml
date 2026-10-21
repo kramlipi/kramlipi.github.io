@@ -132,6 +132,7 @@ markdown_extensions:
 nav:
   - Overview:
     - Home: index.md
+    - Products: products.md
     - Pains we fix: pains.md
   - Platform:
     - Get started: get-started.md
